@@ -1,12 +1,19 @@
 ﻿using System;
+using System.IO;
+using System.Collections.Generic;
+using Refaktorering_Labb.Models;
 
-namespace Refaktorering_Labb
+namespace MooGame
 {
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Hello World!");
-        }
-    }
+	class Program
+	{
+
+		public static void Main(string[] args)
+		{	
+			MessageHandler.PrintWelcome();
+			Game game = new Game();
+			game.RunGame();
+		}
+		
+	}
 }
