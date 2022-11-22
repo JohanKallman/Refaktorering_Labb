@@ -9,32 +9,30 @@ namespace Refaktorering_Labb.Models
 {
     public class Game
     {
-        public bool IsRunning { get; set; }
+		public bool IsRunning { get; set; } = true;
 
         public void RunGame()
         {
-			bool playOn = true;
 			string name = Console.ReadLine();
 
-			while (playOn)
+			while (IsRunning)
 			{
-				string goal = makeGoal();
-
+				string correctAnswer = GenerateCorrectAnswer();
 
 				Console.WriteLine("New game:\n");
-				//comment out or remove next line to play real games!
-				Console.WriteLine("For practice, number is: " + goal + "\n");
+			
+				//Console.WriteLine("For practice, number is: " + goal + "\n");
 				string guess = Console.ReadLine();
 
 				int nGuess = 1;
-				string bbcc = checkBC(goal, guess);
+				string bbcc = CompareGuessWithCorrectAnswer(correctAnswer, guess);
 				Console.WriteLine(bbcc + "\n");
 				while (bbcc != "BBBB,")
 				{
 					nGuess++;
 					guess = Console.ReadLine();
 					Console.WriteLine(guess + "\n");
-					bbcc = checkBC(goal, guess);
+					bbcc = CompareGuessWithCorrectAnswer(correctAnswer, guess);
 					Console.WriteLine(bbcc + "\n");
 				}
 				//File.WriteAllText(output, result);
@@ -46,13 +44,13 @@ namespace Refaktorering_Labb.Models
 				string answer = Console.ReadLine();
 				if (answer != null && answer != "" && answer.Substring(0, 1) == "n")
 				{
-					playOn = false;
+					IsRunning = false;
 				}
 			}
 
 		}
 
-		static string makeGoal()
+		static string GenerateCorrectAnswer()
 		{
 			Random randomGenerator = new Random();
 			string goal = "";
@@ -70,7 +68,7 @@ namespace Refaktorering_Labb.Models
 			return goal;
 		}
 
-		static string checkBC(string goal, string guess)
+		static string CompareGuessWithCorrectAnswer(string goal, string guess)
 		{
 			int cows = 0, bulls = 0;
 			guess += "    ";     // if player entered less than 4 chars
@@ -106,7 +104,7 @@ namespace Refaktorering_Labb.Models
 				string[] nameAndScore = line.Split(new string[] { "#&#" }, StringSplitOptions.None);
 				string name = nameAndScore[0];
 				int guesses = Convert.ToInt32(nameAndScore[1]);
-				PlayerData pd = new PlayerData(name, guesses);
+				PlayerData pd = new PlayerData(name, guesses);				
 				int pos = results.IndexOf(pd);
 				if (pos < 0)
 				{
@@ -127,5 +125,5 @@ namespace Refaktorering_Labb.Models
 			}
 			input.Close();
 		}
-	}
+    }
 }
