@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31911.196
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Refaktorering_Labb", "Refaktorering_Labb.csproj", "{DDB84C4F-CE6B-4FEA-8EB3-AD236B44F30E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DDB84C4F-CE6B-4FEA-8EB3-AD236B44F30E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDB84C4F-CE6B-4FEA-8EB3-AD236B44F30E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDB84C4F-CE6B-4FEA-8EB3-AD236B44F30E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDB84C4F-CE6B-4FEA-8EB3-AD236B44F30E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E5C6AE6B-E7DD-4AB1-B389-E5503A46C8FF}
+	EndGlobalSection
+EndGlobal
