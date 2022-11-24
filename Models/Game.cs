@@ -18,29 +18,35 @@ namespace Refaktorering_Labb.Models
 			while (IsRunning)
 			{
 				string correctAnswer = GenerateCorrectAnswer();
-
+				int numberOfGuesses = 0;
+				bool playerGuessedCorrect = false;
 				Console.WriteLine("New game:\n");
-			
-				//Console.WriteLine("For practice, number is: " + goal + "\n");
-				string guess = Console.ReadLine();
+                Console.WriteLine("For practice, number is: " + correctAnswer + "\n");
 
-				int nGuess = 1;
-				string bbcc = CompareGuessWithCorrectAnswer(correctAnswer, guess);
-				Console.WriteLine(bbcc + "\n");
-				while (bbcc != "BBBB,")
-				{
-					nGuess++;
-					guess = Console.ReadLine();
-					Console.WriteLine(guess + "\n");
-					bbcc = CompareGuessWithCorrectAnswer(correctAnswer, guess);
-					Console.WriteLine(bbcc + "\n");
+                while (playerGuessedCorrect == false)
+                {
+					string inputGuess = Console.ReadLine().Trim();
+					bool guessHasCorrectFormat = InputManager.ValidateInputGuess(inputGuess);
+					numberOfGuesses++;
+					if (guessHasCorrectFormat)
+					{
+						Console.WriteLine($"You guessed: { inputGuess} \n");
+						string outputResult = ReturnOutputAfterGuess(correctAnswer, inputGuess);
+						Console.WriteLine($"Result: {outputResult} \n");
+						playerGuessedCorrect = CheckGameWinningCondition(outputResult);							
+					}
+					else
+					{
+						Console.WriteLine("Guess must contain 4 characters! Try again: ");
+					}
 				}
-				//File.WriteAllText(output, result);
-				StreamWriter output = new StreamWriter("result.txt", append: true);
-				output.WriteLine(name + "#&#" + nGuess);
+              
+                //File.WriteAllText(output, result);
+                StreamWriter output = new StreamWriter("result.txt", append: true);
+				output.WriteLine(name + "#&#" + numberOfGuesses);
 				output.Close();
-				showTopList();
-				Console.WriteLine("Correct, it took " + nGuess + " guesses\nContinue?");
+				DisplayTopList();
+				Console.WriteLine("Correct, it took " + numberOfGuesses + " guesses\nContinue?");
 				string answer = Console.ReadLine();
 				if (answer != null && answer != "" && answer.Substring(0, 1) == "n")
 				{
@@ -68,32 +74,42 @@ namespace Refaktorering_Labb.Models
 			return goal;
 		}
 
-		static string CompareGuessWithCorrectAnswer(string goal, string guess)
+		static string ReturnOutputAfterGuess(string hiddenAnswer, string guess)
 		{
-			int cows = 0, bulls = 0;
+			int numberExistsWrongPositionCounter = 0;
+			int correctPositionCounter = 0;
 			guess += "    ";     // if player entered less than 4 chars
 			for (int i = 0; i < 4; i++)
 			{
 				for (int j = 0; j < 4; j++)
 				{
-					if (goal[i] == guess[j])
+					if (hiddenAnswer[i] == guess[j])
 					{
 						if (i == j)
 						{
-							bulls++;
+							correctPositionCounter++;
 						}
 						else
 						{
-							cows++;
+							numberExistsWrongPositionCounter++;
 						}
 					}
 				}
 			}
-			return "BBBB".Substring(0, bulls) + "," + "CCCC".Substring(0, cows);
+			return "BBBB".Substring(0, correctPositionCounter) + "," + "CCCC".Substring(0, numberExistsWrongPositionCounter);
 		}
 
+		static bool CheckGameWinningCondition(string resultAfterGuess)
+        {
+			if (resultAfterGuess == "BBBB,")
+            {
+				return true;
+            }
+			return false;
+        }
 
-		static void showTopList()
+
+		static void DisplayTopList()
 		{
 			//string[] inputFile = File.ReadAllLines(input);
 			StreamReader input = new StreamReader("result.txt");
