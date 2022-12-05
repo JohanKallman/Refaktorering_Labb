@@ -172,13 +172,5 @@ namespace refaktorering_labb.Models
 
       return correctAnswerInColor;
     }
-    public void TestingMerge()
-    {
-      CorrectAnswerInColor = CorrectAnswer;
-    }
-
-
-
-
   }
 }

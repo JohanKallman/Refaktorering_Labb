@@ -37,13 +37,10 @@ namespace Refaktorering_Labb.Models
             return PlayerName.Equals(((PlayerData)p).PlayerName);
         }
 
-
         public override int GetHashCode()
         {
             return PlayerName.GetHashCode();
         }
-
-
 
     }
 }
