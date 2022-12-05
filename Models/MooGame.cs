@@ -52,32 +52,11 @@ namespace refaktorering_labb.Models
             return uniqueNumberToReturn;
         }
 
-        //    public static string GenerateCorrectAnswer(int topOfGuessingNumberSpan)
-        //{
-        //  // DO BETTER
-        //  Random randomGenerator = new Random();
-        //  string correctAnswer = "";
-        //  for (int i = 0; i < 4; i++)
-        //  {
-        //    int random = randomGenerator.Next(topOfGuessingNumberSpan);
-        //    string randomDigit = random.ToString();
-        //    while (correctAnswer.Contains(randomDigit))
-        //    {
-        //      random = randomGenerator.Next(10);
-        //      randomDigit = random.ToString();
-        //    }
-        //    correctAnswer = correctAnswer + randomDigit;
-        //  }
-        //  return correctAnswer;
-        //}
-
         public void StartNewInstanceOfGame()
         {
             CorrectAnswer = GenerateCorrectAnswer();
             Console.WriteLine("For practice, number is: " + CorrectAnswer + "\n"); // Till UI
         }
-
-
 
         public bool CheckIfCorrectLengthFormat(string guess)
         {
@@ -145,7 +124,6 @@ namespace refaktorering_labb.Models
             {
                 return false;
             }
-
             return true;
         }
 
