@@ -170,12 +170,12 @@ namespace refaktorering_labb.Models
         PlayerGuess += (Color)number + ",";
       }
 
-            return correctAnswerInColor;
-        }
-        public void TestingMerge()
-        {
-            CorrectAnswerInColor = "heej";
-        }
+      return correctAnswerInColor;
+    }
+    public void TestingMerge()
+    {
+      CorrectAnswerInColor = CorrectAnswer;
+    }
 
 
 
