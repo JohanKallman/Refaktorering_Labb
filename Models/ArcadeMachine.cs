@@ -128,14 +128,11 @@ namespace refaktorering_labb.Models
     {
       _uI.PrintResultOfInstance(_game.NumberOfGuesses);
       _uI.PrintPlayAgainQuestion();
-      GameIsRunning = _game.CheckIfPlayAgain(Console.ReadLine());
-
-
-
 
       _uI.PrintHighScoreListMessage();
       _statistics.SaveGameResultToFile(_game.PlayerName, _game.NumberOfGuesses);
       _statistics.DisplayTopList();
+      GameIsRunning = _game.CheckIfPlayAgain(Console.ReadLine());
 
     }
 
