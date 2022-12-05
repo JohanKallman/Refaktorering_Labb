@@ -172,5 +172,10 @@ namespace refaktorering_labb.Models
 
       return correctAnswerInColor;
     }
+
+    public void test()
+    {
+      CorrectAnswer = "sdli";
+    }
   }
 }
