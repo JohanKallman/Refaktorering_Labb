@@ -1,11 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace refactoring_labb2.Interfaces
+namespace Refactoring_Lab.Interfaces
 {
-  public interface IPlayerData
+    public interface IPlayerData
   {
     void Update(int guesses);
     double Average();

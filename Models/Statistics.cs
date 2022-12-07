@@ -1,14 +1,11 @@
+using Refactoring_Lab.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using refactoring_labb2.Interfaces;
-using Refaktorering_Labb.Models;
 
-namespace refaktorering_labb.Models
+namespace Refactoring_Lab.Models
 {
-  public class Statistics : IStatistics
+    public class Statistics : IStatistics
   {
     public void SaveGameResultToFile(string playerName, int numberOfGuesses)
     {

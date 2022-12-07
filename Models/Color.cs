@@ -1,4 +1,4 @@
-namespace refaktorering_labb.Models
+namespace Refactoring_Lab
 {
   public enum Color
   {

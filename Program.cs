@@ -1,26 +1,22 @@
-using System;
-using System.IO;
-using System.Collections.Generic;
-using Refaktorering_Labb.Models;
-using refaktorering_labb.Models;
+using Refactoring_Lab.Models;
 
 namespace MooGame
 {
-  class Program
-  {
-
-    public static void Main(string[] args)
+    class Program
     {
 
+        public static void Main(string[] args)
+        {
 
-      ArcadeMachine arcadeMachine = ArcadeMachine.GetInstance();
 
-      arcadeMachine.Start();
+            ArcadeMachine arcadeMachine = ArcadeMachine.GetInstance();
 
+            arcadeMachine.Start();
+
+
+        }
 
     }
-
-  }
 
 }
 
