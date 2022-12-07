@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace refactoring_labb2.Interfaces
+namespace Refactoring_Lab.Interfaces
 {
-  public interface IStatistics
+    public interface IStatistics
   {
     void SaveGameResultToFile(string playerName, int numberOfGuesses);
     void DisplayTopList();

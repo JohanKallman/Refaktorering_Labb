@@ -1,11 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace refaktorering_labb.Models
+namespace Refactoring_Lab.Models
 {
-  public class UI
+    public class UI
   {
 
 

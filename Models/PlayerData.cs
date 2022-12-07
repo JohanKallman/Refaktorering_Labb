@@ -1,14 +1,9 @@
+using Refactoring_Lab.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using refactoring_labb2.Interfaces;
 
-namespace Refaktorering_Labb.Models
+namespace Refactoring_Lab.Models
 {
-  public class PlayerData : IPlayerData
+    public class PlayerData : IPlayerData
   {
     public string PlayerName { get; private set; }
 

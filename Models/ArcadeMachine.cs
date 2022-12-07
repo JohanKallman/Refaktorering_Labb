@@ -1,175 +1,170 @@
+using Refactoring_Lab.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using refactoring_labb2.Interfaces;
-using refaktorering_labb.Interfaces;
-using Refaktorering_Labb.Models;
 
-namespace refaktorering_labb.Models
+namespace Refactoring_Lab.Models
 {
-  public sealed class ArcadeMachine
-  {
-    private readonly string Name = "The Arcade";
-    public UI _uI;
-    //public Statistics _statistics;
-
-    public Game _game;
-    //public PlayerData _playerData;
-
-    IStatistics _statistics;
-    IPlayerData _playerData;
-
-    public static bool GameIsRunning { get; set; } = false;
-    // public UI _uI { get; set; }
-    // public Statistics _statistics { get; set; }
-    // public Game _game { get; set; }
-
-    private static ArcadeMachine _instance;
-
-
-    public static ArcadeMachine GetInstance()
+    public sealed class ArcadeMachine
     {
-      if (_instance == null)
-      {
-        IStatistics statistics = new Statistics();
-        UI uI = new UI();
-        IPlayerData playerData = new PlayerData();
+        private readonly string Name = "The Arcade";
+        public UI _uI;
+        //public Statistics _statistics;
 
-        _instance = new ArcadeMachine(uI, statistics, playerData);
-      }
+        public Game _game;
+        //public PlayerData _playerData;
 
-      return _instance;
-    }
+        private readonly IStatistics _statistics;
+        private readonly IPlayerData _playerData;
 
-    public ArcadeMachine(UI uI, IStatistics statistics, IPlayerData playerData)
-    {
-      _uI = uI;
-      _statistics = statistics;
-      _playerData = playerData;
+        public static bool GameIsRunning { get; set; } = false;
+        // public UI _uI { get; set; }
+        // public Statistics _statistics { get; set; }
+        // public Game _game { get; set; }
 
-
-    }
+        private static ArcadeMachine _instance;
 
 
-    public void Start()
-    {
-      _uI.PrintWelcomeMessage(Name);
+        public static ArcadeMachine GetInstance()
+        {
+            if (_instance == null)
+            {
+                IStatistics statistics = new Statistics();
+                UI uI = new UI();
+                IPlayerData playerData = new PlayerData();
 
-      _uI.PrintChooseGameMessage();
-      _game = ChooseGame(Console.ReadLine());
+                _instance = new ArcadeMachine(uI, statistics, playerData);
+            }
 
-      RunGame();
+            return _instance;
+        }
 
-    }
-
-    public void RunGame()
-    {
-      do
-      {
-        RunStartup();
-        RunningRounds();
-        GameOver();
-      }
-      while (GameIsRunning);
-
-      _uI.PrintGoodByeMessage();
-    }
-
-    public void RunStartup()
-    {
-      GameIsRunning = true;
-      _game.ResetGuessingCounter();
-      _uI.PrintWelcomeMessage(_game.GameName);
-      _uI.PrintEnterNameMessage();
-      _game.PlayerName = Console.ReadLine();
-      _uI.PrintRulesMessage(_game.Rules);
-
-    }
-
-    public void RunningRounds()
-    {
-
-      _game.StartNewInstanceOfGame();
+        public ArcadeMachine(UI uI, IStatistics statistics, IPlayerData playerData)
+        {
+            _uI = uI;
+            _statistics = statistics;
+            _playerData = playerData;
 
 
-      _game.PlayerIsGuessing = true;
+        }
 
-      RoundIsRunning();
 
-    }
+        public void Start()
+        {
+            _uI.PrintWelcomeMessage(Name);
 
-    public void RoundIsRunning()
-    {
-      while (_game.PlayerIsGuessing)
-      {
-        _uI.PrintRoundStartMessage(_game.NumberOfGuesses);
-        _uI.PrintGuessHereMessage();
-        _game.PlayerGuess = _game.PlayerGuesses();
+            _uI.PrintChooseGameMessage();
+            _game = ChooseGame(Console.ReadLine());
 
-        bool guessHasCorrectFormat = ValidateInputGuess();
+            RunGame();
 
-        if (guessHasCorrectFormat)
+        }
+
+        public void RunGame()
+        {
+            do
+            {
+                RunStartup();
+                RunningRounds();
+                GameOver();
+            }
+            while (GameIsRunning);
+
+            _uI.PrintGoodByeMessage();
+        }
+
+        public void RunStartup()
+        {
+            GameIsRunning = true;
+            _game.ResetGuessingCounter();
+            _uI.PrintWelcomeMessage(_game.GameName);
+            _uI.PrintEnterNameMessage();
+            _game.PlayerName = Console.ReadLine();
+            _uI.PrintRulesMessage(_game.Rules);
+
+        }
+
+        public void RunningRounds()
         {
 
-          _game.PrepareRoundResult();
+            _game.StartNewInstanceOfGame();
 
-          _uI.PrintResultOfPlayerGuessMessage(_game.PlayerGuess, _game.OutPutResult);
-          _game.PlayerIsGuessing = _game.CheckGameWinningCondition();
+
+            _game.PlayerIsGuessing = true;
+
+            RoundIsRunning();
+
         }
-        else
+
+        public void RoundIsRunning()
         {
-          _uI.PrintInputErrorMessage();
-          _uI.PrintRulesMessage(_game.Rules);
+            while (_game.PlayerIsGuessing)
+            {
+                _uI.PrintRoundStartMessage(_game.NumberOfGuesses);
+                _uI.PrintGuessHereMessage();
+                _game.PlayerGuess = _game.PlayerGuesses();
+
+                bool guessHasCorrectFormat = ValidateInputGuess();
+
+                if (guessHasCorrectFormat)
+                {
+
+                    _game.PrepareRoundResult();
+
+                    _uI.PrintResultOfPlayerGuessMessage(_game.PlayerGuess, _game.OutPutResult);
+                    _game.PlayerIsGuessing = _game.CheckGameWinningCondition();
+                }
+                else
+                {
+                    _uI.PrintInputErrorMessage();
+                    _uI.PrintRulesMessage(_game.Rules);
+                }
+            }
+
         }
-      }
+
+        public bool ValidateInputGuess()
+        {
+            bool guessHasCorrectFormat = _game.CheckIfCorrectLengthFormat();
+
+            if (guessHasCorrectFormat == false)
+            {
+                return false;
+            }
+
+            return guessHasCorrectFormat = _game.CheckIfCorrectCharFormat();
+
+        }
+
+        public void GameOver()
+        {
+            _uI.PrintResultOfInstanceMessage(_game.NumberOfGuesses);
+            _uI.PrintAskToPlayAgainMessage();
+
+            _uI.PrintHighScoreListMessage();
+            _statistics.SaveGameResultToFile(_game.PlayerName, _game.NumberOfGuesses);
+            _statistics.DisplayTopList();
+            GameIsRunning = _game.CheckIfPlayAgain(Console.ReadLine());
+
+        }
+
+        public Game ChooseGame(string input)
+        {
+            switch (input)
+            {
+                case "1":
+                    return new MooGame();
+
+
+                case "2":
+                    return new Mastermind();
+
+
+                default:
+                    return null;
+            }
+
+
+        }
+
 
     }
-
-    public bool ValidateInputGuess()
-    {
-      bool guessHasCorrectFormat = _game.CheckIfCorrectLengthFormat();
-
-      if (guessHasCorrectFormat == false)
-      {
-        return false;
-      }
-
-      return guessHasCorrectFormat = _game.CheckIfCorrectCharFormat();
-
-    }
-
-    public void GameOver()
-    {
-      _uI.PrintResultOfInstanceMessage(_game.NumberOfGuesses);
-      _uI.PrintAskToPlayAgainMessage();
-
-      _uI.PrintHighScoreListMessage();
-      _statistics.SaveGameResultToFile(_game.PlayerName, _game.NumberOfGuesses);
-      _statistics.DisplayTopList();
-      GameIsRunning = _game.CheckIfPlayAgain(Console.ReadLine());
-
-    }
-
-    public Game ChooseGame(string input)
-    {
-      switch (input)
-      {
-        case "1":
-          return new MooGame();
-
-
-        case "2":
-          return new Mastermind();
-
-
-        default:
-          return null;
-      }
-
-
-    }
-
-
-  }
 }

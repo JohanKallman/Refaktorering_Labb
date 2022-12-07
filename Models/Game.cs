@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using refaktorering_labb.Interfaces;
-using refaktorering_labb.Models;
 
-namespace Refaktorering_Labb.Models
+namespace Refactoring_Lab.Models
 {
-  public abstract class Game
+    public abstract class Game
   {
     // public UI _uI;
     // public Statistics _statistics;

@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace refaktorering_labb.Interfaces
+namespace Refactoring_Lab.Interfaces
 {
-  public interface ITest : IGame, ITest2
+    public interface ITest : IGame, ITest2
   {
 
   }
