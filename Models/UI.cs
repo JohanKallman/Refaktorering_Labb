@@ -8,20 +8,20 @@ namespace refaktorering_labb.Models
   public class UI
   {
 
-    public void PrintEnterNameMessage()
-    {
-      Console.Write("Enter name: ");
-
-    }
 
     public UI()
     {
 
     }
 
+    public void PrintEnterNameMessage()
+    {
+      Console.Write("Enter name: ");
+
+    }
 
 
-    public void PrintWelcome(string gameName)
+    public void PrintWelcomeMessage(string gameName)
     {
       Console.WriteLine($"Welcome to {gameName}!");
     }
@@ -33,29 +33,29 @@ namespace refaktorering_labb.Models
                         "[2] Mastermind");
     }
 
-    public void PrintRules(string rules)
+    public void PrintRulesMessage(string rules)
     {
       Console.WriteLine(rules);
     }
 
-    public void RoundStartMessage(int round)
+    public void PrintRoundStartMessage(int round)
     {
       Console.WriteLine($"Round {round + 1}!");
 
     }
 
-    public void PrintResultOfInstance(int numberOfGuesses)
+    public void PrintResultOfInstanceMessage(int numberOfGuesses)
     {
       Console.WriteLine("Correct, it took " + numberOfGuesses + " guesses");
     }
 
-    public void PrintResultOfPlayerGuess(string inputGuess, string outputResult)
+    public void PrintResultOfPlayerGuessMessage(string inputGuess, string outputResult)
     {
       Console.WriteLine($"\nYou guessed: {inputGuess}");
       Console.WriteLine($"Result: {outputResult} \n");
     }
 
-    public void PrintPlayAgainQuestion()
+    public void PrintAskToPlayAgainMessage()
     {
       Console.WriteLine("Would you like to play again? y/n?");
     }
@@ -70,7 +70,7 @@ namespace refaktorering_labb.Models
       Console.WriteLine("Fel format!");
     }
 
-    public void PrintGuessHere()
+    public void PrintGuessHereMessage()
     {
       Console.Write("Your guess: ");
     }

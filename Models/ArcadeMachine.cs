@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using refactoring_labb2.Interfaces;
 using refaktorering_labb.Interfaces;
 using Refaktorering_Labb.Models;
 
@@ -11,38 +12,50 @@ namespace refaktorering_labb.Models
   {
     private readonly string Name = "The Arcade";
     public UI _uI;
-    public Statistics _statistics;
-    public IGame _game;
+    //public Statistics _statistics;
+
+    public Game _game;
+    //public PlayerData _playerData;
+
+    IStatistics _statistics;
+    IPlayerData _playerData;
 
     public static bool GameIsRunning { get; set; } = false;
+    // public UI _uI { get; set; }
+    // public Statistics _statistics { get; set; }
+    // public Game _game { get; set; }
 
     private static ArcadeMachine _instance;
 
-    // private ArcadeMachine()
-    // {
-
-    // }
 
     public static ArcadeMachine GetInstance()
     {
       if (_instance == null)
       {
-        _instance = new ArcadeMachine(new UI(), new Statistics());
+        IStatistics statistics = new Statistics();
+        UI uI = new UI();
+        IPlayerData playerData = new PlayerData();
+
+        _instance = new ArcadeMachine(uI, statistics, playerData);
       }
 
       return _instance;
     }
 
-    public ArcadeMachine(UI uI, Statistics statistics)
+    public ArcadeMachine(UI uI, IStatistics statistics, IPlayerData playerData)
     {
       _uI = uI;
       _statistics = statistics;
+      _playerData = playerData;
+
+
     }
 
 
     public void Start()
     {
-      _uI.PrintWelcome(Name);
+      _uI.PrintWelcomeMessage(Name);
+
       _uI.PrintChooseGameMessage();
       _game = ChooseGame(Console.ReadLine());
 
@@ -66,10 +79,11 @@ namespace refaktorering_labb.Models
     public void RunStartup()
     {
       GameIsRunning = true;
-      _uI.PrintWelcome(_game.GameName);
-      _uI.PrintRules(_game.Rules);
+      _game.ResetGuessingCounter();
+      _uI.PrintWelcomeMessage(_game.GameName);
       _uI.PrintEnterNameMessage();
       _game.PlayerName = Console.ReadLine();
+      _uI.PrintRulesMessage(_game.Rules);
 
     }
 
@@ -77,7 +91,7 @@ namespace refaktorering_labb.Models
     {
 
       _game.StartNewInstanceOfGame();
-      _uI.RoundStartMessage(_game.NumberOfGuesses);
+
 
       _game.PlayerIsGuessing = true;
 
@@ -89,45 +103,46 @@ namespace refaktorering_labb.Models
     {
       while (_game.PlayerIsGuessing)
       {
-        _uI.PrintGuessHere();
-        string inputGuess = _game.PlayerGuesses();
+        _uI.PrintRoundStartMessage(_game.NumberOfGuesses);
+        _uI.PrintGuessHereMessage();
+        _game.PlayerGuess = _game.PlayerGuesses();
 
-        bool guessHasCorrectFormat = ValidateInputGuess(inputGuess);
+        bool guessHasCorrectFormat = ValidateInputGuess();
 
         if (guessHasCorrectFormat)
         {
 
-          string outputResult = _game.PrepareRoundResult(inputGuess);
+          _game.PrepareRoundResult();
 
-          _uI.PrintResultOfPlayerGuess(_game.PlayerGuess, outputResult);
-          _game.PlayerIsGuessing = _game.CheckGameWinningCondition(outputResult);
+          _uI.PrintResultOfPlayerGuessMessage(_game.PlayerGuess, _game.OutPutResult);
+          _game.PlayerIsGuessing = _game.CheckGameWinningCondition();
         }
         else
         {
           _uI.PrintInputErrorMessage();
-          _uI.PrintRules(_game.Rules);
+          _uI.PrintRulesMessage(_game.Rules);
         }
       }
 
     }
 
-    public bool ValidateInputGuess(string guess)
+    public bool ValidateInputGuess()
     {
-      bool guessHasCorrectFormat = _game.CheckIfCorrectLengthFormat(guess);
+      bool guessHasCorrectFormat = _game.CheckIfCorrectLengthFormat();
 
       if (guessHasCorrectFormat == false)
       {
         return false;
       }
 
-      return guessHasCorrectFormat = _game.CheckIfCorrectCharFormat(guess);
+      return guessHasCorrectFormat = _game.CheckIfCorrectCharFormat();
 
     }
 
     public void GameOver()
     {
-      _uI.PrintResultOfInstance(_game.NumberOfGuesses);
-      _uI.PrintPlayAgainQuestion();
+      _uI.PrintResultOfInstanceMessage(_game.NumberOfGuesses);
+      _uI.PrintAskToPlayAgainMessage();
 
       _uI.PrintHighScoreListMessage();
       _statistics.SaveGameResultToFile(_game.PlayerName, _game.NumberOfGuesses);
@@ -136,7 +151,7 @@ namespace refaktorering_labb.Models
 
     }
 
-    public IGame ChooseGame(string input)
+    public Game ChooseGame(string input)
     {
       switch (input)
       {

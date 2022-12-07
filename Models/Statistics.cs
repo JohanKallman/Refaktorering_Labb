@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using refactoring_labb2.Interfaces;
 using Refaktorering_Labb.Models;
 
 namespace refaktorering_labb.Models
 {
-  public class Statistics
+  public class Statistics : IStatistics
   {
     public void SaveGameResultToFile(string playerName, int numberOfGuesses)
     {
@@ -23,7 +24,7 @@ namespace refaktorering_labb.Models
 
       List<PlayerData> results = new List<PlayerData>();
       string line;
-          
+
       while ((line = input.ReadLine()) != null)
       {
         string[] nameAndScore = line.Split(new string[] { "#&#" }, StringSplitOptions.None);
