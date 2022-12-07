@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Refactoring_Lab.Models
 {
-    public abstract class Game
+  public abstract class Game
   {
     // public UI _uI;
     // public Statistics _statistics;
@@ -13,7 +13,7 @@ namespace Refactoring_Lab.Models
     public string Rules { get; set; }
     public int TopOfGuessingNumberSpan { get; set; }
     public bool GameIsRunning { get; set; }
-    public bool PlayerIsGuessing { get; set; }
+    public bool ActiveGame { get; set; }
     public static bool PlayerGuessing { get; set; }
     public string PlayerName { get; set; }
     public string PlayerGuess { get; set; }
@@ -24,10 +24,12 @@ namespace Refactoring_Lab.Models
     public int LowestRandomNumber { get; set; }
     public int AmountOfIntegersInAnswer { get; set; }
     public string OutPutResult { get; set; }
+    public bool ValidGuess { get; set; }
 
     public void StartNewInstanceOfGame()
     {
       CorrectAnswer = GenerateCorrectAnswer();
+
       Console.WriteLine("For practice, number is: " + CorrectAnswer + "\n"); // Till UI
     }
 
@@ -53,17 +55,46 @@ namespace Refactoring_Lab.Models
       NumberOfGuesses = 0;
     }
 
-    public string PlayerGuesses()
+    public void PlayerGuesses()
     {
       IncrementGuessingCounterByOne();
 
-      return Console.ReadLine().Trim();
+      PlayerGuess = Console.ReadLine().Trim();
     }
 
     public void IncrementGuessingCounterByOne()
     {
       NumberOfGuesses++;
 
+    }
+
+
+
+    public void ValidateInputGuess()
+    {
+      ValidGuess = CheckIfAcceptedFormat();
+
+      // bool guessHasCorrectFormat = CheckIfCorrectLengthFormat();
+
+      // if (guessHasCorrectFormat == false)
+      // {
+      //   return false;
+      // }
+
+      // return guessHasCorrectFormat = CheckIfCorrectCharFormat();
+
+    }
+
+    public bool CheckIfAcceptedFormat()
+    {
+      bool guessHasCorrectFormat = CheckIfCorrectLengthFormat();
+
+      if (guessHasCorrectFormat == false)
+      {
+        return false;
+      }
+
+      return guessHasCorrectFormat = CheckIfCorrectCharFormat();
     }
 
     public bool CheckIfCorrectLengthFormat()
@@ -118,15 +149,24 @@ namespace Refactoring_Lab.Models
       return "BBBB".Substring(0, correctPositionCounter) + "," + "CCCC".Substring(0, numberExistsWrongPositionCounter);
     }
 
-    public bool CheckGameWinningCondition()
+    // public bool CheckGameWinningCondition()
+    // {
+    //   if (OutPutResult == "BBBB,")
+    //   {
+    //     return false;
+    //   }
+    //   return true;
+    // }
+
+    public void CheckIfGameIsOver()
     {
       if (OutPutResult == "BBBB,")
       {
-        return false;
+        ActiveGame = false;
       }
-      return true;
-    }
 
+
+    }
     public bool CheckIfPlayAgain(string answer)
     {
       if (answer != null && answer != "" && answer.Substring(0, 1) == "n")

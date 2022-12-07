@@ -5,7 +5,7 @@ using System.IO;
 
 namespace Refactoring_Lab.Models
 {
-    public class Statistics : IStatistics
+  public class Statistics : IStatistics
   {
     public void SaveGameResultToFile(string playerName, int numberOfGuesses)
     {
@@ -46,6 +46,7 @@ namespace Refactoring_Lab.Models
       {
         Console.WriteLine(string.Format("{0,-9}{1,5:D}{2,9:F2}", p.PlayerName, p.NumberOfGames, p.Average()));
       }
+      Console.WriteLine();
       input.Close();
     }
   }

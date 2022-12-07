@@ -2,7 +2,7 @@ using System;
 
 namespace Refactoring_Lab.Models
 {
-    public class UI
+  public class UI
   {
 
 
@@ -20,19 +20,21 @@ namespace Refactoring_Lab.Models
 
     public void PrintWelcomeMessage(string gameName)
     {
-      Console.WriteLine($"Welcome to {gameName}!");
+      Console.WriteLine($"\nWelcome to {gameName}!\n");
     }
 
     public void PrintChooseGameMessage()
     {
-      Console.WriteLine("Please choose game. \n" +
+      Console.Write("Please choose game. \n" +
                         "[1] Moo Game \n" +
-                        "[2] Mastermind");
+                        "[2] Mastermind\n\n" +
+                        //"[Q] Quit"+
+                        "[: ");
     }
 
     public void PrintRulesMessage(string rules)
     {
-      Console.WriteLine(rules);
+      Console.WriteLine(rules + "\n");
     }
 
     public void PrintRoundStartMessage(int round)
@@ -43,7 +45,7 @@ namespace Refactoring_Lab.Models
 
     public void PrintResultOfInstanceMessage(int numberOfGuesses)
     {
-      Console.WriteLine("Correct, it took " + numberOfGuesses + " guesses");
+      Console.WriteLine("Correct, it took " + numberOfGuesses + " guesses!\n");
     }
 
     public void PrintResultOfPlayerGuessMessage(string inputGuess, string outputResult)
@@ -54,7 +56,7 @@ namespace Refactoring_Lab.Models
 
     public void PrintAskToPlayAgainMessage()
     {
-      Console.WriteLine("Would you like to play again? y/n?");
+      Console.WriteLine("Would you like to play again? y/n?\n");
     }
 
     public void PrintHighScoreListMessage()
@@ -64,7 +66,7 @@ namespace Refactoring_Lab.Models
 
     public void PrintInputErrorMessage()
     {
-      Console.WriteLine("Fel format!");
+      Console.WriteLine("\nWrong input format!");
     }
 
     public void PrintGuessHereMessage()

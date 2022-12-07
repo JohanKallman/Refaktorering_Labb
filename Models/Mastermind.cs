@@ -2,14 +2,14 @@ using System.Linq;
 
 namespace Refactoring_Lab.Models
 {
-    public class Mastermind : Game
+  public class Mastermind : Game
   {
 
 
     public Mastermind()
     {
       GameName = "Mastermind";
-      Rules = "Guess must contain 4 different colors. Choose between (1)Red, (2)Green, (3)Blue, (4)Yellow, (5)Cyan or (6)Magenta.";
+      Rules = "\nGuess must contain 4 different colors. \nChoose between (1)Red, (2)Green, (3)Blue, (4)Yellow, (5)Cyan or (6)Magenta.";
 
       GameIsRunning = false;
       PlayerGuessing = true;
