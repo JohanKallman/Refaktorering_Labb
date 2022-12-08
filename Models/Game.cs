@@ -35,9 +35,13 @@ namespace Refactoring_Lab.Models
       Console.WriteLine("For practice, number is: " + CorrectAnswer + "\n"); // Till UI
     }
 
-    public abstract void PrepareRoundResult();
+        //public abstract void PrepareRoundResult();
+        public virtual void PrepareRoundResult()
+        {
+            OutPutResult = ReturnOutputAfterGuess();
+        }
 
-    public string GenerateCorrectAnswer()
+        public string GenerateCorrectAnswer()
     {
       Random numberGenerator = new Random();
       string uniqueNumberToReturn = "";
