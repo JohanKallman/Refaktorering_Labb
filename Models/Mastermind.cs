@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 
 namespace Refactoring_Lab.Models
@@ -17,34 +18,48 @@ namespace Refactoring_Lab.Models
       NumberOfGuesses = 1;
       HighestRandomNumber = 7;
       AmountOfIntegersInAnswer = 4;
-
+      LowestRandomNumber = 1;
     }
 
-    //Validate highest/lowest random number
     public override void PrepareRoundResult()
     {
-
       OutPutResult = ReturnOutputAfterGuess();
-      FromNumberToColor();
 
+      PlayerGuess = FromNumberToColor();
     }
-    public void FromNumberToColor()
-    {
 
-      //Skapa test och metod och bryt ut konverteringen
-      var intArray = PlayerGuess.Select(c => c - '0').ToArray();
+    //public void FromNumberToColor()
+    //{
+    //    int[] intArray = ConvertStringToIntArray();
+    //    PlayerGuess = "";
+    //    foreach (var number in intArray)
+    //    {
+    //        PlayerGuess += (Color)number + ",";
+    //    }
+    //}
+
+    public string FromNumberToColor()
+    {
+      var intArray = ConvertStringToIntArray();
       PlayerGuess = "";
       foreach (var number in intArray)
       {
-
-        PlayerGuess += (Color)number + ",";
+        PlayerGuess += (Color)number + ", ";
       }
 
 
-
+      public int[] ConvertStringToIntArray()
+      {
+        //return PlayerGuess.Select(c => c - '0').ToArray();
+        return PlayerGuess.Select(x => int.Parse(x.ToString())).ToArray();
+      }
     }
 
 
-
+    public int[] ConvertStringToIntArray()
+    {
+      //return PlayerGuess.Select(c => c - '0').ToArray();
+      return PlayerGuess.Select(x => int.Parse(x.ToString())).ToArray();
+    }
   }
 }
