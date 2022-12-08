@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudioCode.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Refactoring_Lab.Models;
 
 namespace Refactoring_Lab.Tests
