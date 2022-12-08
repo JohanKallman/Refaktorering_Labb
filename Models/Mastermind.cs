@@ -47,12 +47,8 @@ namespace Refactoring_Lab.Models
         PlayerGuess += (Color)number + ", ";
       }
 
+      return PlayerGuess;
 
-      public int[] ConvertStringToIntArray()
-      {
-        //return PlayerGuess.Select(c => c - '0').ToArray();
-        return PlayerGuess.Select(x => int.Parse(x.ToString())).ToArray();
-      }
     }
 
 
