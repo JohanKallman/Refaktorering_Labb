@@ -5,7 +5,7 @@ namespace Refactoring_Lab.Models
 {
   public sealed class ArcadeMachine
   {
-    private readonly string Name = "The Arcade";
+    private readonly string ArcadeName = "The Arcade";
 
     public UI _uI;
     public Game _game;
@@ -15,6 +15,7 @@ namespace Refactoring_Lab.Models
     private readonly IPlayerData _playerData;
 
     public static bool GameIsRunning { get; set; } = false;
+    public static bool ArcadeIsRunning { get; set; }
 
 
     private static ArcadeMachine _instance;
@@ -24,8 +25,8 @@ namespace Refactoring_Lab.Models
     {
       if (_instance == null)
       {
-        IStatistics statistics = new Statistics();
         UI uI = new UI();
+        IStatistics statistics = new Statistics();
         IPlayerData playerData = new PlayerData();
 
         _instance = new ArcadeMachine(uI, statistics, playerData);
@@ -39,20 +40,27 @@ namespace Refactoring_Lab.Models
       _uI = uI;
       _statistics = statistics;
       _playerData = playerData;
-
-
     }
 
 
     public void Start()
     {
-      _uI.PrintWelcomeMessage(Name);
+      do
+      {
+        ArcadeIsRunning = true;
+        _uI.PrintWelcomeMessage(ArcadeName);
+        _uI.PrintChooseGameMessage();
+        _game = GameMenu(Console.ReadLine());
 
-      _uI.PrintChooseGameMessage();
-      _game = ChooseGame(Console.ReadLine());
+        if (_game is not null)
+        {
+          RunGame();
+        }
 
-      RunGame();
+      }
+      while (ArcadeIsRunning);
 
+      _uI.PrintGoodByeMessage();
     }
 
     public void RunGame()
@@ -74,18 +82,15 @@ namespace Refactoring_Lab.Models
       _game.ResetGuessingCounter();
       _uI.PrintWelcomeMessage(_game.GameName);
       _uI.PrintEnterNameMessage();
-      _game.PlayerName = Console.ReadLine();
+      _game.SetPlayerName();
       _uI.PrintRulesMessage(_game.Rules);
 
     }
 
     public void RunningRounds()
     {
-
       _game.StartNewInstanceOfGame();
-
       RoundIsRunning();
-
     }
 
     public void RoundIsRunning()
@@ -112,6 +117,7 @@ namespace Refactoring_Lab.Models
           _uI.PrintResultOfPlayerGuessMessage(_game.PlayerGuess, _game.OutPutResult);
         }
       }
+
       while (_game.ActiveGame);
 
 
@@ -122,8 +128,8 @@ namespace Refactoring_Lab.Models
     public void GameOver()
     {
       _uI.PrintResultOfInstanceMessage(_game.NumberOfGuesses);
-
       _uI.PrintHighScoreListMessage();
+
       _statistics.SaveGameResultToFile(_game.PlayerName, _game.NumberOfGuesses);
       _statistics.DisplayTopList();
       _uI.PrintAskToPlayAgainMessage();
@@ -131,7 +137,31 @@ namespace Refactoring_Lab.Models
 
     }
 
-    public Game ChooseGame(string input)
+    // public void GameMenu(string input)
+    // {
+    //   switch (input)
+    //   {
+    //     case "1":
+    //       _game = new MooGame();
+    //       break;
+
+    //     case "2":
+    //       _game = new Mastermind();
+    //       break;
+
+    //     case "3":
+    //       ArcadeIsRunning = false;
+    //       break;
+
+    //     default:
+    //       break;
+    //   }
+
+
+    // }
+
+
+    public Game GameMenu(string input)
     {
       switch (input)
       {
@@ -142,6 +172,9 @@ namespace Refactoring_Lab.Models
         case "2":
           return new Mastermind();
 
+        case "3":
+          ArcadeIsRunning = false;
+          return null;
 
         default:
           return null;

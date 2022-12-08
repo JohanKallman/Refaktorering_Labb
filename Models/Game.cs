@@ -5,10 +5,6 @@ namespace Refactoring_Lab.Models
 {
   public abstract class Game
   {
-    // public UI _uI;
-    // public Statistics _statistics;
-    // public GameMechanics _gameMechanics;
-
     public string GameName { get; set; }
     public string Rules { get; set; }
     public int TopOfGuessingNumberSpan { get; set; }
@@ -25,6 +21,12 @@ namespace Refactoring_Lab.Models
     public int AmountOfIntegersInAnswer { get; set; }
     public string OutPutResult { get; set; }
     public bool ValidGuess { get; set; }
+
+    public void SetPlayerName()
+    {
+      PlayerName = Console.ReadLine();
+
+    }
 
     public void StartNewInstanceOfGame()
     {

@@ -20,7 +20,7 @@ namespace Refactoring_Lab.Models
 
     }
 
-
+    //Validate highest/lowest random number
     public override void PrepareRoundResult()
     {
 
