@@ -27,8 +27,8 @@ namespace Refactoring_Lab.Models
     {
       Console.Write("Please choose game. \n" +
                         "[1] Moo Game \n" +
-                        "[2] Mastermind\n\n" +
-                        //"[Q] Quit"+
+                        "[2] Mastermind \n\n" +
+                        "[Q] Turn off game  \n\n" +
                         "[: ");
     }
 
