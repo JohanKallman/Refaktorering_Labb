@@ -50,7 +50,7 @@ namespace Refactoring_Lab.Models
         ArcadeIsRunning = true;
         _uI.PrintWelcomeMessage(ArcadeName);
         _uI.PrintChooseGameMessage();
-        _game = GameMenu(Console.ReadLine());
+        _game = GameMenu(Console.ReadLine().ToUpper());
 
         if (_game is not null)
         {
@@ -82,7 +82,7 @@ namespace Refactoring_Lab.Models
       _game.ResetGuessingCounter();
       _uI.PrintWelcomeMessage(_game.GameName);
       _uI.PrintEnterNameMessage();
-      _game.SetPlayerName();
+      _playerData.SetPlayerName();
       _uI.PrintRulesMessage(_game.Rules);
 
     }
@@ -130,7 +130,7 @@ namespace Refactoring_Lab.Models
       _uI.PrintResultOfInstanceMessage(_game.NumberOfGuesses);
       _uI.PrintHighScoreListMessage();
 
-      _statistics.SaveGameResultToFile(_game.PlayerName, _game.NumberOfGuesses);
+      _statistics.SaveGameResultToFile(_playerData.PlayerName, _game.NumberOfGuesses);
       _statistics.DisplayTopList();
       _uI.PrintAskToPlayAgainMessage();
       GameIsRunning = _game.CheckIfPlayAgain(Console.ReadLine());
@@ -172,7 +172,7 @@ namespace Refactoring_Lab.Models
         case "2":
           return new Mastermind();
 
-        case "3":
+        case "Q":
           ArcadeIsRunning = false;
           return null;
 

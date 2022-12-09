@@ -19,12 +19,12 @@ namespace Refactoring_Lab.Models
         }
 
 
-        public override void PrepareRoundResult()
-        {
+        //public override void PrepareRoundResult()
+        //{
 
-            OutPutResult = ReturnOutputAfterGuess();
+        //    OutPutResult = ReturnOutputAfterGuess();
 
-        }
+        //}
 
     }
 }
