@@ -10,8 +10,6 @@ namespace Refactoring_Lab.Models
     public int NumberOfGames { get; set; }
     public int TotalGuesses { get; set; }
 
-    //int totalGuess;
-
     public PlayerData(string name, int guesses)
     {
       PlayerName = name;
@@ -29,7 +27,8 @@ namespace Refactoring_Lab.Models
       PlayerName = Console.ReadLine();
 
     }
-
+    
+    //Reseta denna när man lämnar ett spel
     public void UpdateNumberOfGames()
     {
       NumberOfGames++;

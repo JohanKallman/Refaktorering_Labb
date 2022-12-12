@@ -2,7 +2,7 @@ namespace Refactoring_Lab.Interfaces
 {
     public interface IStatistics
   {
-    void SaveGameResultToFile(string playerName, int numberOfGuesses);
-    void DisplayTopList();
+    void SaveGameResultToFile(string playerName, int numberOfGuesses, string topListData);
+    string CreateSortedTopList();
   }
 }

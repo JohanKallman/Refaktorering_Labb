@@ -2,62 +2,82 @@ using Refactoring_Lab.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Numerics;
+using static System.Net.WebRequestMethods;
 
 namespace Refactoring_Lab.Models
 {
-  public class Statistics : IStatistics
-  {
-    //PlayerData _playerData = new PlayerData();
-
-    public void SaveGameResultToFile(string playerName, int numberOfGuesses)
+    public class Statistics : IStatistics
     {
-      StreamWriter resultOutput = new StreamWriter("result.txt", append: true);
-      resultOutput.WriteLine(playerName + "#&#" + numberOfGuesses);
-      resultOutput.Close();
-    }
+        private List<PlayerData> playerResults = new List<PlayerData>();
+        public string TopListData { get; set; }
 
-
-    public void DisplayTopList()
-    {
-      //Read game result from file
-      StreamReader resultInput = new StreamReader("result.txt");
-
-      List<PlayerData> playerResults = new List<PlayerData>();
-      string line;
-
-      while ((line = resultInput.ReadLine()) != null)
-      {
-        string[] nameAndScore = line.Split(new string[] { "#&#" }, StringSplitOptions.None);
-        string name = nameAndScore[0];
-        int guesses = Convert.ToInt32(nameAndScore[1]);
-        PlayerData pd = new PlayerData(name, guesses);
-        int pos = playerResults.IndexOf(pd);
-
-        if (pos < 0)
+        public void SaveGameResultToFile(string playerName, int numberOfGuesses, string topListData)
         {
-          playerResults.Add(pd);
-        }
-        else
-        {
-          playerResults[pos].UpdateTotalGuesses(guesses);
-          playerResults[pos].UpdateNumberOfGames();
+            TopListData = topListData;
+            StreamWriter resultOutput = new StreamWriter(TopListData, append: true);
+            resultOutput.WriteLine(playerName + "#&#" + numberOfGuesses);
+            resultOutput.Close();
         }
 
-      }
-      playerResults.Sort((p1, p2) => p1.Average().CompareTo(p2.Average()));
-      Console.WriteLine("Player   games average");
-      foreach (PlayerData p in playerResults)
-      {
-        Console.WriteLine(string.Format("{0,-9}{1,5:D}{2,9:F2}", p.PlayerName, p.NumberOfGames, p.Average()));
-      }
-      Console.WriteLine();
-      resultInput.Close();
-    }
+        public string CreateSortedTopList()
+        {
+            CreateDataForTopList();
 
-    // public void UpdatePlayerData(int guesses)
-    // {
-    //   results[pos].UpdateTotalGuesses(guesses);
-    //   results[pos].UpdateNumberOfGames();
-    // }
-  }
+            playerResults.Sort((p1, p2) => p1.Average().CompareTo(p2.Average()));
+            string topList = "Player   games   average\n";
+
+            foreach (PlayerData player in playerResults)
+            {
+               topList += string.Format("{0,-9}{1,5:D}{2,9:F2}", player.PlayerName, player.NumberOfGames, player.Average()) +"\n";
+            }
+            return topList;
+        }
+
+        public void CreateDataForTopList()
+        {
+            StreamReader input = new StreamReader(TopListData);
+            string inputLine;
+
+            while ((inputLine = input.ReadLine()) != null)
+            {
+                PlayerData player = CreatePlayerWithNameAndScore(inputLine);
+                int playerIndex = playerResults.IndexOf(player);
+
+                if (CheckIfPlayerExists(playerIndex) == false)
+                {
+                    playerResults.Add(player);
+                }
+                else
+                {
+                    UpdatePlayerData(playerIndex, player);
+                }
+            }
+            input.Close();
+        }
+
+        public PlayerData CreatePlayerWithNameAndScore(string inputLine)
+        {
+            string[] playerNameAndScore = inputLine.Split(new string[] { "#&#" }, StringSplitOptions.None);
+            string playerName = playerNameAndScore[0];
+            int playerScore = Convert.ToInt32(playerNameAndScore[1]);
+            PlayerData player = new PlayerData(playerName, playerScore);
+            return player;
+        }
+
+        public bool CheckIfPlayerExists(int playerIndex)
+        {
+            if (playerIndex < 0)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public void UpdatePlayerData(int playerIndex, PlayerData player)
+        {
+            playerResults[playerIndex].UpdateTotalGuesses(player.TotalGuesses);
+            playerResults[playerIndex].UpdateNumberOfGames();
+        }
+    }
 }

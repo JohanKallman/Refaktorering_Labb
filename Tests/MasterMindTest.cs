@@ -32,7 +32,7 @@ namespace Refactoring_Lab.Tests
       mastermind.PlayerGuess = input;
       string result = mastermind.FromNumberToColor();
       Assert.AreEqual(result, expected);
-
+            
     }
 
     [TestMethod]

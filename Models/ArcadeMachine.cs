@@ -124,10 +124,10 @@ namespace Refactoring_Lab.Models
     public void GameOver()
     {
       _uI.PrintResultOfGameSession(_game.NumberOfGuesses);
-      _uI.PrintHighScoreListMessage();
+      _uI.PrintTopListListMessage();
 
-      _statistics.SaveGameResultToFile(_playerData.PlayerName, _game.NumberOfGuesses);
-      _statistics.DisplayTopList();
+      _statistics.SaveGameResultToFile(_playerData.PlayerName, _game.NumberOfGuesses, _game.TopListData);
+      _uI.PrintTopList(_statistics.CreateSortedTopList());
       _uI.PrintAskToPlayAgainMessage();
       GameIsRunning = _game.CheckIfPlayAgain();
 
