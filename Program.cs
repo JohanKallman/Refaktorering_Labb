@@ -2,21 +2,16 @@ using Refactoring_Lab.Models;
 
 namespace MooGame
 {
-    class Program
+  class Program
+  {
+
+    public static void Main(string[] args)
     {
-
-        public static void Main(string[] args)
-        {
-
-
-            ArcadeMachine arcadeMachine = ArcadeMachine.GetInstance();
-
-            arcadeMachine.Start();
-
-
-        }
-
+      ArcadeMachine arcadeMachine = ArcadeMachine.GetInstance();
+      arcadeMachine.Start();
     }
+
+  }
 
 }
 

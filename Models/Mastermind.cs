@@ -13,7 +13,6 @@ namespace Refactoring_Lab.Models
       Rules = "\nGuess must contain 4 different colors. \nChoose between (1)Red, (2)Green, (3)Blue, (4)Yellow, (5)Cyan or (6)Magenta.";
 
       GameIsRunning = false;
-      PlayerGuessing = true;
       CorrectAnswer = "";
       NumberOfGuesses = 1;
       HighestRandomNumber = 7;

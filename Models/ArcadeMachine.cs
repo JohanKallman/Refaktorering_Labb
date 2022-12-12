@@ -49,8 +49,8 @@ namespace Refactoring_Lab.Models
       {
         ArcadeIsRunning = true;
         _uI.PrintWelcomeMessage(ArcadeName);
-        _uI.PrintChooseGameMessage();
-        _game = GameMenu(Console.ReadLine().ToUpper());
+        _uI.PrintGameMenuOptions();
+        _game = GameMenuSelectedOption();
 
         if (_game is not null)
         {
@@ -67,8 +67,9 @@ namespace Refactoring_Lab.Models
     {
       do
       {
+        GameIsRunning = true;
         RunStartup();
-        RunningRounds();
+        GameSession();
         GameOver();
       }
       while (GameIsRunning);
@@ -78,26 +79,23 @@ namespace Refactoring_Lab.Models
 
     public void RunStartup()
     {
-      GameIsRunning = true;
-      _game.ResetGuessingCounter();
       _uI.PrintWelcomeMessage(_game.GameName);
       _uI.PrintEnterNameMessage();
       _playerData.SetPlayerName();
       _uI.PrintRulesMessage(_game.Rules);
+    }
 
+    public void GameSession()
+    {
+      _game.StartNewInstanceOfGame();
+      RunningRounds();
     }
 
     public void RunningRounds()
     {
-      _game.StartNewInstanceOfGame();
-      RoundIsRunning();
-    }
-
-    public void RoundIsRunning()
-    {
       do
       {
-        _game.ActiveGame = true;
+        _game.PlayerIsGuessing = true;
         _uI.PrintRoundStartMessage(_game.NumberOfGuesses);
         _uI.PrintGuessHereMessage();
         _game.PlayerGuesses();
@@ -114,56 +112,31 @@ namespace Refactoring_Lab.Models
         {
           _game.PrepareRoundResult();
           _game.CheckIfGameIsOver();
-          _uI.PrintResultOfPlayerGuessMessage(_game.PlayerGuess, _game.OutPutResult);
+          _uI.PrintResultOfPlayerGuess(_game.PlayerGuess, _game.OutPutResult);
         }
       }
 
-      while (_game.ActiveGame);
-
-
+      while (_game.PlayerIsGuessing);
 
     }
 
 
     public void GameOver()
     {
-      _uI.PrintResultOfInstanceMessage(_game.NumberOfGuesses);
+      _uI.PrintResultOfGameSession(_game.NumberOfGuesses);
       _uI.PrintHighScoreListMessage();
 
       _statistics.SaveGameResultToFile(_playerData.PlayerName, _game.NumberOfGuesses);
       _statistics.DisplayTopList();
       _uI.PrintAskToPlayAgainMessage();
-      GameIsRunning = _game.CheckIfPlayAgain(Console.ReadLine());
+      GameIsRunning = _game.CheckIfPlayAgain();
 
     }
 
-    // public void GameMenu(string input)
-    // {
-    //   switch (input)
-    //   {
-    //     case "1":
-    //       _game = new MooGame();
-    //       break;
-
-    //     case "2":
-    //       _game = new Mastermind();
-    //       break;
-
-    //     case "3":
-    //       ArcadeIsRunning = false;
-    //       break;
-
-    //     default:
-    //       break;
-    //   }
-
-
-    // }
-
-
-    public Game GameMenu(string input)
+    public Game GameMenuSelectedOption()
     {
-      switch (input)
+      //GameMenuSelectedOption(Console.ReadLine().ToUpper());
+      switch (Console.ReadLine().ToUpper())
       {
         case "1":
           return new MooGame();
@@ -182,6 +155,29 @@ namespace Refactoring_Lab.Models
 
 
     }
+
+    // public Game GameMenu(string input)
+    // {
+    //   switch (input)
+    //   {
+    //     case "1":
+    //       return new MooGame();
+
+
+    //     case "2":
+    //       return new Mastermind();
+
+    //     case "Q":
+    //       ArcadeIsRunning = false;
+    //       return null;
+
+    //     default:
+    //       return null;
+    //   }
+
+
+    // }
+
 
 
   }

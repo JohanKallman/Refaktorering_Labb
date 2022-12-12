@@ -23,7 +23,7 @@ namespace Refactoring_Lab.Models
       Console.WriteLine($"\nWelcome to {gameName}!\n");
     }
 
-    public void PrintChooseGameMessage()
+    public void PrintGameMenuOptions()
     {
       Console.Write("Please choose game. \n" +
                         "[1] Moo Game \n" +
@@ -37,18 +37,23 @@ namespace Refactoring_Lab.Models
       Console.WriteLine(rules + "\n");
     }
 
+    //=============================================
+    // The +1 is needed because the guessing counter
+    // increments after this message.  
+    //-----------------------------------------
     public void PrintRoundStartMessage(int round)
     {
       Console.WriteLine($"Round {round + 1}!");
 
     }
 
-    public void PrintResultOfInstanceMessage(int numberOfGuesses)
+
+    public void PrintResultOfGameSession(int numberOfGuesses)
     {
       Console.WriteLine("Correct, it took " + numberOfGuesses + " guesses!\n");
     }
 
-    public void PrintResultOfPlayerGuessMessage(string inputGuess, string outputResult)
+    public void PrintResultOfPlayerGuess(string inputGuess, string outputResult)
     {
       Console.WriteLine($"\nYou guessed: {inputGuess}");
       Console.WriteLine($"Result: {outputResult} \n");
@@ -56,7 +61,8 @@ namespace Refactoring_Lab.Models
 
     public void PrintAskToPlayAgainMessage()
     {
-      Console.WriteLine("Would you like to play again? y/n?\n");
+      Console.WriteLine("To play again press any key.\n" +
+                        "To quit press 'Q'");
     }
 
     public void PrintHighScoreListMessage()
