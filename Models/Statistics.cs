@@ -10,55 +10,59 @@ namespace Refactoring_Lab.Models
     public class Statistics : IStatistics
     {
         private List<PlayerData> playerResults = new List<PlayerData>();
-        public string TopListData { get; set; }
 
-        public void SaveGameResultToFile(string playerName, int numberOfGuesses, string topListData)
+        public void SaveGameResultToFile(string playerName, int numberOfGuesses, string gameName)
         {
-            TopListData = topListData;
-            StreamWriter resultOutput = new StreamWriter(TopListData, append: true);
-            resultOutput.WriteLine(playerName + "#&#" + numberOfGuesses);
+            StreamWriter resultOutput = new StreamWriter("result.txt", append: true);
+            resultOutput.WriteLine(playerName + "#&#" + numberOfGuesses + "#&#" + gameName);
             resultOutput.Close();
         }
 
-        public string CreateSortedTopList()
+        public string CreateSortedTopList(string gameName)
         {
-            CreateDataForTopList();
+            CreateDataForTopList(gameName);
 
             playerResults.Sort((p1, p2) => p1.Average().CompareTo(p2.Average()));
             string topList = "Player   games   average\n";
 
             foreach (PlayerData player in playerResults)
             {
-               topList += string.Format("{0,-9}{1,5:D}{2,9:F2}", player.PlayerName, player.NumberOfGames, player.Average()) +"\n";
+                topList += string.Format("{0,-9}{1,5:D}{2,9:F2}", player.PlayerName, player.NumberOfGames, player.Average()) + "\n";
             }
+            playerResults.Clear();
             return topList;
         }
 
-        public void CreateDataForTopList()
+        public void CreateDataForTopList(string gameName)
         {
-            StreamReader input = new StreamReader(TopListData);
+            StreamReader input = new StreamReader("result.txt");
             string inputLine;
 
             while ((inputLine = input.ReadLine()) != null)
             {
-                PlayerData player = CreatePlayerWithNameAndScore(inputLine);
-                int playerIndex = playerResults.IndexOf(player);
+                string[] playerNameAndScore = inputLine.Split(new string[] { "#&#" }, StringSplitOptions.None);
+                string game = playerNameAndScore[2];
 
-                if (CheckIfPlayerExists(playerIndex) == false)
+                if (gameName == game)
                 {
-                    playerResults.Add(player);
-                }
-                else
-                {
-                    UpdatePlayerData(playerIndex, player);
+                    PlayerData player = CreatePlayerWithNameAndScore(playerNameAndScore);
+                    int playerIndex = playerResults.IndexOf(player);
+
+                    if (CheckIfPlayerExists(playerIndex) == false)
+                    {
+                        playerResults.Add(player);
+                    }
+                    else
+                    {
+                        UpdatePlayerData(playerIndex, player);
+                    }
                 }
             }
             input.Close();
         }
 
-        public PlayerData CreatePlayerWithNameAndScore(string inputLine)
+        public PlayerData CreatePlayerWithNameAndScore(string[] playerNameAndScore)
         {
-            string[] playerNameAndScore = inputLine.Split(new string[] { "#&#" }, StringSplitOptions.None);
             string playerName = playerNameAndScore[0];
             int playerScore = Convert.ToInt32(playerNameAndScore[1]);
             PlayerData player = new PlayerData(playerName, playerScore);

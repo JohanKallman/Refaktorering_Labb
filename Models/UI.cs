@@ -65,9 +65,9 @@ namespace Refactoring_Lab.Models
                               "To quit press 'Q'");
         }
 
-        public void PrintTopListListMessage()
+        public void PrintTopListListMessage(string gameName)
         {
-            Console.WriteLine("<([ TOP LIST ])>");
+            Console.WriteLine($"<([ Top list for {gameName} ])>");
         }
 
         public void PrintInputErrorMessage()

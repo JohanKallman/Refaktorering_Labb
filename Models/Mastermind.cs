@@ -18,7 +18,6 @@ namespace Refactoring_Lab.Models
             HighestRandomNumber = 7;
             AmountOfIntegersInAnswer = 4;
             LowestRandomNumber = 1;
-            TopListData = "MastermindResult.txt";
         }
 
         public override void PrepareRoundResult()

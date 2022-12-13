@@ -8,19 +8,19 @@ namespace Refactoring_Lab.Models
         public string GameName { get; set; }
         public string Rules { get; set; }
         public bool GameIsRunning { get; set; }
+
+        // Ny klass Answer?
         public string CorrectAnswer { get; set; }
         public int HighestRandomNumber { get; set; }
         public int LowestRandomNumber { get; set; }
         public int AmountOfIntegersInAnswer { get; set; }
+
+        // Ny klass PlayerGuess?
         public string OutPutResult { get; set; }
         public bool PlayerIsGuessing { get; set; }
         public string PlayerGuess { get; set; }
-
         public int NumberOfGuesses { get; set; }
         public bool ValidGuess { get; set; }
-        public string TopListData { get; set; }
-
-
 
         public void StartNewInstanceOfGame()
         {
