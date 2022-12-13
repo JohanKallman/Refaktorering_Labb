@@ -18,10 +18,14 @@ namespace Refactoring_Lab.Models
             resultOutput.Close();
         }
 
-        public string CreateSortedTopList(string gameName)
+        public string CreateTopList(string gameName)
         {
             CreateDataForTopList(gameName);
+            return SortTopListData();
+        }
 
+        public string SortTopListData()
+        {
             playerResults.Sort((p1, p2) => p1.Average().CompareTo(p2.Average()));
             string topList = "Player   games   average\n";
 

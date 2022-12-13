@@ -124,7 +124,7 @@ namespace Refactoring_Lab.Models
       _uI.PrintTopListListMessage(_game.GameName);
 
       _statistics.SaveGameResultToFile(_playerData.PlayerName, _game.NumberOfGuesses, _game.GameName);
-      _uI.PrintTopList(_statistics.CreateSortedTopList(_game.GameName));
+      _uI.PrintTopList(_statistics.CreateTopList(_game.GameName));
       _uI.PrintAskToPlayAgainMessage();
       GameIsRunning = _game.CheckIfPlayAgain();
 
