@@ -1,14 +1,9 @@
-p#&#1
-j#&#1
-j#&#1
-p#&#1
-p#&#1
-p#&#1
-P#&#2
-p#&#1
-p#&#2
-p#&#1
-p#&#1
-p#&#1
-p#&#1
-p#&#1
+p#&#1#&#Moo Game
+p#&#1#&#Mastermind
+p#&#1#&#Moo Game
+p#&#1#&#Moo Game
+p#&#1#&#Moo Game
+p#&#1#&#Mastermind
+p#&#1#&#Moo Game
+p#&#3#&#Moo Game
+p#&#1#&#Mastermind

@@ -132,7 +132,6 @@ namespace Refactoring_Lab.Models
 
     public Game GameMenuSelectedOption()
     {
-      //GameMenuSelectedOption(Console.ReadLine().ToUpper());
       switch (Console.ReadLine().ToUpper())
       {
         case "1":
@@ -146,6 +145,7 @@ namespace Refactoring_Lab.Models
           return null;
 
         default:
+          Console.WriteLine("Felaktigt val. Försök igen.");
           return null;
       }
 
