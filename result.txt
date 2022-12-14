@@ -7,3 +7,5 @@ p#&#1#&#Mastermind
 p#&#1#&#Moo Game
 p#&#3#&#Moo Game
 p#&#1#&#Mastermind
+p#&#2#&#Mastermind
+p#&#2#&#Moo Game
