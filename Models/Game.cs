@@ -7,42 +7,30 @@ namespace Refactoring_Lab.Models
     {
         public string GameName { get; set; }
         public string Rules { get; set; }
-        public bool GameIsRunning { get; set; }
+        public bool GameIsRunning { get; set; } = false;
+        public GameAnswer GameAnswer { get; set; } = new GameAnswer();
 
-        // Ny klass Answer?
-        public string CorrectAnswer { get; set; }
-        public int HighestRandomNumber { get; set; }
-        public int LowestRandomNumber { get; set; }
-        public int AmountOfIntegersInAnswer { get; set; }
-
-        // Ny klass PlayerGuess?
-        public string OutPutResult { get; set; }
-        public bool PlayerIsGuessing { get; set; }
-        public string PlayerGuess { get; set; }
-        public int NumberOfGuesses { get; set; }
-        public bool ValidGuess { get; set; }
+        public PlayerGuess PlayerGuess { get; set; } = new PlayerGuess();
 
         public void StartNewInstanceOfGame()
         {
             ResetGuessingCounter();
-            CorrectAnswer = GenerateCorrectAnswer();
-
-            Console.WriteLine("For practice, number is: " + CorrectAnswer + "\n"); // Till UI
+            GameAnswer.CorrectAnswer = GenerateCorrectAnswer();
+            Console.WriteLine("For practice, number is: " + GameAnswer.CorrectAnswer + "\n");
         }
-
 
         public virtual void PrepareRoundResult()
         {
-            OutPutResult = ReturnOutputAfterGuess();
+            PlayerGuess.OutPutResult = ReturnOutputAfterGuess();
         }
 
         public string GenerateCorrectAnswer()
         {
             Random numberGenerator = new Random();
             string uniqueNumberToReturn = "";
-            while (uniqueNumberToReturn.Length < AmountOfIntegersInAnswer)
+            while (uniqueNumberToReturn.Length < GameAnswer.AmountOfIntegersInAnswer)
             {
-                int newNumber = numberGenerator.Next(LowestRandomNumber, HighestRandomNumber);
+                int newNumber = numberGenerator.Next(GameAnswer.LowestRandomNumber, GameAnswer.HighestRandomNumber);
                 if (!uniqueNumberToReturn.Contains(newNumber.ToString()))
                 {
                     uniqueNumberToReturn += newNumber.ToString();
@@ -53,87 +41,53 @@ namespace Refactoring_Lab.Models
 
         public void ResetGuessingCounter()
         {
-            NumberOfGuesses = 0;
+            PlayerGuess.NumberOfGuesses = 0;
         }
 
         public void PlayerGuesses()
         {
-            PlayerGuess = Console.ReadLine().Trim();
+            PlayerGuess.Guess = Console.ReadLine().Trim();
             IncrementGuessingCounterByOne();
         }
 
         public void IncrementGuessingCounterByOne()
         {
-            NumberOfGuesses++;
-
+            PlayerGuess.NumberOfGuesses++;
         }
-
-
 
         public void ValidateInputGuess()
         {
-            ValidGuess = CheckIfAcceptedFormat();
-
-            // bool guessHasCorrectFormat = CheckIfCorrectLengthFormat();
-
-            // if (guessHasCorrectFormat == false)
-            // {
-            //   return false;
-            // }
-
-            // return guessHasCorrectFormat = CheckIfCorrectCharFormat();
-
+            PlayerGuess.IsValidGuess = CheckIfAcceptedFormat();
         }
 
         public bool CheckIfAcceptedFormat()
         {
             bool guessHasCorrectFormat = CheckIfCorrectLengthFormat();
-
             if (guessHasCorrectFormat == false)
             {
                 return false;
             }
-
             return guessHasCorrectFormat = CheckIfCorrectCharFormat();
         }
 
         public bool CheckIfCorrectLengthFormat()
         {
-
-            if (PlayerGuess.Length == AmountOfIntegersInAnswer)
+            if (PlayerGuess.Guess.Length == GameAnswer.AmountOfIntegersInAnswer)
             {
                 return true;
             }
-
             return false;
         }
-
-        // public bool CheckIfCorrectLengthFormat()
-        // {
-        //   int numberOfAllowedCharachters = 4;
-        //   if (PlayerGuess.Length == numberOfAllowedCharachters)
-        //   {
-        //     return true;
-        //   }
-
-        //   return false;
-        // }
 
         public bool CheckIfCorrectCharFormat()
         {
-            if (PlayerGuess.All(char.IsDigit))
+            if (PlayerGuess.Guess.All(char.IsDigit))
             {
                 return true;
             }
 
             return false;
         }
-
-        // public string PrepareRoundResult()
-        // {
-
-        //   return ReturnOutputAfterGuess();
-        // }
 
         public string ReturnOutputAfterGuess()
         {
@@ -144,7 +98,7 @@ namespace Refactoring_Lab.Models
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    if (CorrectAnswer[i] == PlayerGuess[j])
+                    if (GameAnswer.CorrectAnswer[i] == PlayerGuess.Guess[j])
                     {
                         if (i == j)
                         {
@@ -162,12 +116,10 @@ namespace Refactoring_Lab.Models
 
         public void CheckIfGameIsOver()
         {
-            if (OutPutResult == "BBBB,")
+            if (PlayerGuess.OutPutResult == "BBBB,")
             {
-                PlayerIsGuessing = false;
+                PlayerGuess.PlayerIsGuessing = false;
             }
-
-
         }
         public bool CheckIfPlayAgain()
         {
@@ -177,7 +129,6 @@ namespace Refactoring_Lab.Models
             }
             return true;
         }
-
     }
 
 

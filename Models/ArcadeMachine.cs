@@ -39,7 +39,6 @@ namespace Refactoring_Lab.Models
       _playerData = playerData;
     }
 
-
     public void Start()
     {
       do
@@ -92,14 +91,14 @@ namespace Refactoring_Lab.Models
     {
       do
       {
-        _game.PlayerIsGuessing = true;
-        _uI.PrintRoundStartMessage(_game.NumberOfGuesses);
+        _game.PlayerGuess.PlayerIsGuessing = true;
+        _uI.PrintRoundStartMessage(_game.PlayerGuess.NumberOfGuesses);
         _uI.PrintGuessHereMessage();
         _game.PlayerGuesses();
 
         _game.ValidateInputGuess();
 
-        if (_game.ValidGuess == false)
+        if (_game.PlayerGuess.IsValidGuess == false)
         {
           _uI.PrintInputErrorMessage();
           _uI.PrintRulesMessage(_game.Rules);
@@ -109,21 +108,20 @@ namespace Refactoring_Lab.Models
         {
           _game.PrepareRoundResult();
           _game.CheckIfGameIsOver();
-          _uI.PrintResultOfPlayerGuess(_game.PlayerGuess, _game.OutPutResult);
+          _uI.PrintResultOfPlayerGuess(_game.PlayerGuess.Guess, _game.PlayerGuess.OutPutResult);
         }
       }
 
-      while (_game.PlayerIsGuessing);
+      while (_game.PlayerGuess.PlayerIsGuessing);
 
     }
 
 
     public void GameOver()
     {
-      _uI.PrintResultOfGameSession(_game.NumberOfGuesses);
+      _uI.PrintResultOfGameSession(_game.PlayerGuess.NumberOfGuesses);
       _uI.PrintTopListListMessage(_game.GameName);
-
-      _statistics.SaveGameResultToFile(_playerData.PlayerName, _game.NumberOfGuesses, _game.GameName);
+      _statistics.SaveGameResultToFile(_playerData.PlayerName, _game.PlayerGuess.NumberOfGuesses, _game.GameName);
       _uI.PrintTopList(_statistics.CreateTopList(_game.GameName));
       _uI.PrintAskToPlayAgainMessage();
       GameIsRunning = _game.CheckIfPlayAgain();

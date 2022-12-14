@@ -29,7 +29,7 @@ namespace Refactoring_Lab.Tests
     [DataRow("456", "Yellow, Cyan, Magenta, ")]
     public void FromNumberToColor(string input, string expected)
     {
-      mastermind.PlayerGuess = input;
+      mastermind.PlayerGuess.Guess = input;
       string result = mastermind.FromNumberToColor();
       Assert.AreEqual(result, expected);
             
@@ -39,7 +39,7 @@ namespace Refactoring_Lab.Tests
     [DataRow("1234", new[] { 1, 2, 3, 4 })]
     public void ConvertStringToIntArray(string input, int[] expected)
     {
-      mastermind.PlayerGuess = input;
+      mastermind.PlayerGuess.Guess = input;
       int[] result = mastermind.ConvertStringToIntArray();
       CollectionAssert.AreEqual(result, expected);
     }
