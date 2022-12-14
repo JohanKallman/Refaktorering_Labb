@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Refactoring_Lab.Interfaces;
 
 namespace Refactoring_Lab.Models
 {
@@ -24,6 +25,7 @@ namespace Refactoring_Lab.Models
 
     public override string CheckIfUniqueNumberIsRequired(string correctAnswer, int newNumber)
     {
+
       return correctAnswer += newNumber.ToString();
     }
 

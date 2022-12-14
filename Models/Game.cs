@@ -34,8 +34,8 @@ namespace Refactoring_Lab.Models
         int newNumber = numberGenerator.Next(GameAnswer.LowestRandomNumber, GameAnswer.HighestRandomNumber);
         correctAnswer = CheckIfUniqueNumberIsRequired(correctAnswer, newNumber);
       }
-      return "4423";
-      //return correctAnswer;
+      //return "4423";
+      return correctAnswer;
     }
 
     public virtual string CheckIfUniqueNumberIsRequired(string correctAnswer, int newNumber)

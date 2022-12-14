@@ -8,21 +8,16 @@ namespace Refactoring_Lab.Tests
   {
     readonly Mastermind mastermind = new Mastermind();
 
-    //[TestMethod]
-    //[DataRow(new[] {1, 2, 3,}, "Red, Green, Blue,")]
-    //[DataRow(new[] {4, 5, 6,}, "Yellow, Cyan, Magenta,")]
-    //public void FromNumberToColor(int[] input, string expected)
-    //{
+    [TestMethod]
+    [DataRow("123", 4, "1234")]
+    [DataRow("123", 3, "1233")]
+    public void CheckIfUniqueNumberIsRequired(string input, int numberToAdd, string expected)
+    {
 
-    //    //expected = mastermind.PlayerGuess;
-    //    mastermind.PlayerGuess = expected;
-    //    string result = mastermind.FromNumberToColor();
-    //    Assert.AreEqual(result, expected);
-
-    //    //mastermind.PlayerGuess = expected;
-    //    //string result = mastermind.FromNumberToColor();
-    //    //Assert.AreEqual(result, mastermind.PlayerGuess);
-    //}
+      mastermind.GameAnswer.CorrectAnswer = input;
+      string result = mastermind.CheckIfUniqueNumberIsRequired(input, numberToAdd);
+      Assert.AreEqual(result, expected);
+    }
 
     [TestMethod]
     [DataRow("123", "Red, Green, Blue, ")]
@@ -32,7 +27,7 @@ namespace Refactoring_Lab.Tests
       mastermind.PlayerGuess.Guess = input;
       string result = mastermind.FromNumberToColor();
       Assert.AreEqual(result, expected);
-            
+
     }
 
     [TestMethod]
