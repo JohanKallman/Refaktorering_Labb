@@ -10,16 +10,13 @@ namespace Refactoring_Lab.Models
     public UI _uI;
     public Game _game;
 
-
     private readonly IStatistics _statistics;
     private readonly IPlayerData _playerData;
 
     public static bool GameIsRunning { get; set; } = false;
     public static bool ArcadeIsRunning { get; set; }
 
-
     private static ArcadeMachine _instance;
-
 
     public static ArcadeMachine GetInstance()
     {
@@ -124,10 +121,10 @@ namespace Refactoring_Lab.Models
     public void GameOver()
     {
       _uI.PrintResultOfGameSession(_game.NumberOfGuesses);
-      _uI.PrintHighScoreListMessage();
+      _uI.PrintTopListListMessage(_game.GameName);
 
-      _statistics.SaveGameResultToFile(_playerData.PlayerName, _game.NumberOfGuesses);
-      _statistics.DisplayTopList();
+      _statistics.SaveGameResultToFile(_playerData.PlayerName, _game.NumberOfGuesses, _game.GameName);
+      _uI.PrintTopList(_statistics.CreateTopList(_game.GameName));
       _uI.PrintAskToPlayAgainMessage();
       GameIsRunning = _game.CheckIfPlayAgain();
 
@@ -140,7 +137,6 @@ namespace Refactoring_Lab.Models
       {
         case "1":
           return new MooGame();
-
 
         case "2":
           return new Mastermind();

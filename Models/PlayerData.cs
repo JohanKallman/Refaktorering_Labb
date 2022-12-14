@@ -3,58 +3,56 @@ using System;
 
 namespace Refactoring_Lab.Models
 {
-  public class PlayerData : IPlayerData
-  {
-    public string PlayerName { get; set; }
-
-    public int NumberOfGames { get; set; }
-    public int TotalGuesses { get; set; }
-
-    //int totalGuess;
-
-    public PlayerData(string name, int guesses)
+    public class PlayerData : IPlayerData
     {
-      PlayerName = name;
-      NumberOfGames = 1;
-      TotalGuesses = guesses;
+        public string PlayerName { get; set; }
+        public int NumberOfGames { get; set; }
+        public int TotalGuesses { get; set; }
+
+        public PlayerData(string name, int guesses)
+        {
+            PlayerName = name;
+            NumberOfGames = 1;
+            TotalGuesses = guesses;
+        }
+
+        public PlayerData()
+        {
+
+        }
+
+        public void SetPlayerName()
+        {
+            PlayerName = Console.ReadLine();
+
+        }
+
+        //Reseta denna när man lämnar ett spel
+        public void UpdateNumberOfGames()
+        {
+            NumberOfGames++;
+        }
+
+        public void UpdateTotalGuesses(int guesses)
+        {
+            TotalGuesses += guesses;
+        }
+
+        public double Average()
+        {
+            return (double)TotalGuesses / NumberOfGames;
+        }
+
+        public override bool Equals(Object p)
+        {
+            return PlayerName.Equals(((PlayerData)p).PlayerName);
+        }
+
+        public override int GetHashCode()
+        {
+            return PlayerName.GetHashCode();
+        }
+
+
     }
-
-    public PlayerData()
-    {
-
-    }
-
-    public void SetPlayerName()
-    {
-      PlayerName = Console.ReadLine();
-
-    }
-
-    public void UpdateNumberOfGames()
-    {
-      NumberOfGames++;
-    }
-
-    public void UpdateTotalGuesses(int guesses)
-    {
-      TotalGuesses += guesses;
-    }
-
-    public double Average()
-    {
-      return (double)TotalGuesses / NumberOfGames;
-    }
-
-    public override bool Equals(Object p)
-    {
-      return PlayerName.Equals(((PlayerData)p).PlayerName);
-    }
-
-    public override int GetHashCode()
-    {
-      return PlayerName.GetHashCode();
-    }
-
-
-  }
 }

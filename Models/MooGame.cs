@@ -13,7 +13,6 @@ namespace Refactoring_Lab.Models
       HighestRandomNumber = 10;
       LowestRandomNumber = 0;
       AmountOfIntegersInAnswer = 4;
-
     }
 
 
