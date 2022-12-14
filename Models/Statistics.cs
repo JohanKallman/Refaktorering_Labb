@@ -44,6 +44,7 @@ namespace Refactoring_Lab.Models
 
             while ((inputLine = input.ReadLine()) != null)
             {
+                //TODO: döp om till något med player&game...
                 string[] playerNameAndScore = inputLine.Split(new string[] { "#&#" }, StringSplitOptions.None);
                 string game = playerNameAndScore[2];
 
