@@ -7,37 +7,25 @@ using Refactoring_Lab.Interfaces;
 
 namespace Refactoring_Lab.Models
 {
-  public class GameAnswer
+  public class GameAnswer : IAnswerService
   {
     public string CorrectAnswer { get; set; } = "";
     public int HighestRandomNumber { get; set; }
     public int LowestRandomNumber { get; set; }
     public int AmountOfIntegersInAnswer { get; set; }
 
-    // public string GenerateCorrectAnswer()
-    // {
-    //   Random numberGenerator = new Random();
-    //   string correctAnswer = "";
-    //   while (correctAnswer.Length < AmountOfIntegersInAnswer)
-    //   {
-    //     int newNumber = numberGenerator.Next(LowestRandomNumber, HighestRandomNumber);
-    //     correctAnswer = CheckIfUniqueNumberIsRequired(correctAnswer, newNumber);
-    //   }
-    //   return "4423";
-    //   return correctAnswer;
-    // }
+        public string GenerateCorrectAnswer(Game game)
+        {
+            Random numberGenerator = new Random();
+            string correctAnswer = "";
+            while (correctAnswer.Length < AmountOfIntegersInAnswer)
+            {
+                int newNumber = numberGenerator.Next(LowestRandomNumber, HighestRandomNumber);
+                correctAnswer = game.CheckIfUniqueNumberIsRequired(correctAnswer, newNumber);
+            }
+            //return "3423";
+            return correctAnswer;
+        }
 
-    // // public virtual string CheckIfUniqueNumberIsRequired(string correctAnswer, int newNumber);
-
-
-    // public virtual string CheckIfUniqueNumberIsRequired(string correctAnswer, int newNumber)
-    // {
-    //   if (!correctAnswer.Contains(newNumber.ToString()))
-    //   {
-    //     correctAnswer += newNumber.ToString();
-    //   }
-
-    //   return correctAnswer;
-    // }
-  }
+    }
 }

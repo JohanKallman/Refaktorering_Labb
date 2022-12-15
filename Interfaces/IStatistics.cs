@@ -7,7 +7,7 @@ namespace Refactoring_Lab.Interfaces
     {
         void SaveGameResultToFile(string playerName, int numberOfGuesses, string gameName, string fileName);
         string CreateTopList(string gameName, string fileName);
-string SortTopListData();
+        string SortTopListData();
         void CreateDataForTopList(string gameName, string fileName);
 
         PlayerData CreatePlayerWithNameAndScore(string[] playerNameAndScore);

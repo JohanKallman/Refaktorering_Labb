@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Refactoring_Lab.Interfaces;
+using System;
 using System.Linq;
 
 namespace Refactoring_Lab.Models
@@ -8,36 +9,24 @@ namespace Refactoring_Lab.Models
         public string GameName { get; set; }
         public string Rules { get; set; }
         public bool GameIsRunning { get; set; } = false;
-        public GameAnswer GameAnswer { get; set; } = new GameAnswer();
-        public PlayerGuess PlayerGuess { get; set; } = new PlayerGuess();
+        public IAnswerService GameAnswer { get; set; } = new GameAnswer();
+        public IPlayerGuess PlayerGuess { get; set; } = new PlayerGuess();
 
-
-        public void StartNewInstanceOfGame()
+        //KVAR
+        public void StartNewInstanceOfGame(Game game)
         {
-            ResetGuessingCounter();
-            GameAnswer.CorrectAnswer = GenerateCorrectAnswer();
+            PlayerGuess.ResetGuessingCounter();
+            GameAnswer.CorrectAnswer = GameAnswer.GenerateCorrectAnswer(game);
             Console.WriteLine("For practice, number is: " + GameAnswer.CorrectAnswer + "\n");
         }
 
-
+        //KVAR
         public virtual void PrepareRoundResult()
         {
             PlayerGuess.OutPutResult = ReturnOutputAfterGuess();
         }
 
-        public string GenerateCorrectAnswer()
-        {
-            Random numberGenerator = new Random();
-            string correctAnswer = "";
-            while (correctAnswer.Length < GameAnswer.AmountOfIntegersInAnswer)
-            {
-                int newNumber = numberGenerator.Next(GameAnswer.LowestRandomNumber, GameAnswer.HighestRandomNumber);
-                correctAnswer = CheckIfUniqueNumberIsRequired(correctAnswer, newNumber);
-            }
-            return "3423";
-            //return correctAnswer;
-        }
-
+        //KVAR
         public virtual string CheckIfUniqueNumberIsRequired(string correctAnswer, int newNumber)
         {
             if (!correctAnswer.Contains(newNumber.ToString()))
@@ -48,56 +37,7 @@ namespace Refactoring_Lab.Models
             return correctAnswer;
         }
 
-        public void ResetGuessingCounter()
-        {
-            PlayerGuess.NumberOfGuesses = 0;
-        }
-
-        public void PlayerGuesses()
-        {
-            PlayerGuess.Guess = Console.ReadLine().Trim();
-            IncrementGuessingCounterByOne();
-        }
-
-        public void IncrementGuessingCounterByOne()
-        {
-            PlayerGuess.NumberOfGuesses++;
-        }
-
-        public void ValidateInputGuess()
-        {
-            PlayerGuess.IsValidGuess = CheckIfAcceptedFormat();
-        }
-
-        public bool CheckIfAcceptedFormat()
-        {
-            bool guessHasCorrectFormat = CheckIfCorrectLengthFormat();
-            if (guessHasCorrectFormat == false)
-            {
-                return false;
-            }
-            return CheckIfCorrectCharFormat();
-        }
-
-        //FUNGERAR EJ
-        public bool CheckIfCorrectLengthFormat()
-        {
-            if (PlayerGuess.Guess.Length == GameAnswer.AmountOfIntegersInAnswer)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        public bool CheckIfCorrectCharFormat()
-        {
-            if (PlayerGuess.Guess.All(char.IsDigit))
-            {
-                return true;
-            }
-            return false;
-        }
-
+        //KVAR
         public string ReturnOutputAfterGuess()
         {
             int numberExistsWrongPositionCounter = 0;
@@ -141,15 +81,16 @@ namespace Refactoring_Lab.Models
             return "BBBB".Substring(0, correctPositionCounter) + "," + "CCCC".Substring(0, numberExistsWrongPositionCounter);
         }
 
+        //KVAR
         public void CheckIfGameIsOver()
         {
             if (PlayerGuess.OutPutResult == "BBBB,")
             {
                 PlayerGuess.PlayerIsGuessing = false;
             }
-
-
         }
+
+        //KVAR
         public bool CheckIfPlayAgain()
         {
             if (Console.ReadLine().Trim().ToUpper() == "Q")
@@ -158,7 +99,6 @@ namespace Refactoring_Lab.Models
             }
             return true;
         }
-
     }
 
 
