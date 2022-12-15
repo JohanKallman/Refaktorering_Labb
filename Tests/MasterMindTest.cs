@@ -13,8 +13,6 @@ namespace Refactoring_Lab.Tests
     [DataRow("123", 3, "1233")]
     public void CheckIfUniqueNumberIsRequired(string input, int numberToAdd, string expected)
     {
-
-      mastermind.GameAnswer.CorrectAnswer = input;
       string result = mastermind.CheckIfUniqueNumberIsRequired(input, numberToAdd);
       Assert.AreEqual(result, expected);
     }
@@ -39,8 +37,5 @@ namespace Refactoring_Lab.Tests
       CollectionAssert.AreEqual(result, expected);
     }
 
-
-
-
-  }
+    }
 }

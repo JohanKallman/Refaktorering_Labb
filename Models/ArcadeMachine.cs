@@ -121,8 +121,8 @@ namespace Refactoring_Lab.Models
     {
       _uI.PrintResultOfGameSession(_game.PlayerGuess.NumberOfGuesses);
       _uI.PrintTopListListMessage(_game.GameName);
-      _statistics.SaveGameResultToFile(_playerData.PlayerName, _game.PlayerGuess.NumberOfGuesses, _game.GameName);
-      _uI.PrintTopList(_statistics.CreateTopList(_game.GameName));
+      _statistics.SaveGameResultToFile(_playerData.PlayerName, _game.PlayerGuess.NumberOfGuesses, _game.GameName, "result.txt");
+      _uI.PrintTopList(_statistics.CreateTopList(_game.GameName, "result.txt"));
       _uI.PrintAskToPlayAgainMessage();
       GameIsRunning = _game.CheckIfPlayAgain();
 

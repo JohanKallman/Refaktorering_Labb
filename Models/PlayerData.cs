@@ -24,10 +24,8 @@ namespace Refactoring_Lab.Models
         public void SetPlayerName()
         {
             PlayerName = Console.ReadLine();
-
         }
 
-        //Reseta denna när man lämnar ett spel
         public void UpdateNumberOfGames()
         {
             NumberOfGames++;
@@ -43,11 +41,13 @@ namespace Refactoring_Lab.Models
             return (double)TotalGuesses / NumberOfGames;
         }
 
+        //KVAR
         public override bool Equals(Object p)
         {
             return PlayerName.Equals(((PlayerData)p).PlayerName);
         }
 
+        //KVAR
         public override int GetHashCode()
         {
             return PlayerName.GetHashCode();

@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Numerics;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices.ComTypes;
 using static System.Net.WebRequestMethods;
 
 namespace Refactoring_Lab.Models
@@ -11,16 +13,16 @@ namespace Refactoring_Lab.Models
     {
         private List<PlayerData> playerResults = new List<PlayerData>();
 
-        public void SaveGameResultToFile(string playerName, int numberOfGuesses, string gameName)
+        public void SaveGameResultToFile(string playerName, int numberOfGuesses, string gameName, string fileName)
         {
-            StreamWriter resultOutput = new StreamWriter("result.txt", append: true);
+            StreamWriter resultOutput = new StreamWriter(fileName, append: true);
             resultOutput.WriteLine(playerName + "#&#" + numberOfGuesses + "#&#" + gameName);
             resultOutput.Close();
         }
 
-        public string CreateTopList(string gameName)
+        public string CreateTopList(string gameName, string fileName)
         {
-            CreateDataForTopList(gameName);
+            CreateDataForTopList(gameName, fileName);
             return SortTopListData();
         }
 
@@ -37,9 +39,9 @@ namespace Refactoring_Lab.Models
             return topList;
         }
 
-        public void CreateDataForTopList(string gameName)
-        {
-            StreamReader input = new StreamReader("result.txt");
+        public void CreateDataForTopList(string gameName, string fileName)
+{
+            StreamReader input = new StreamReader(fileName);
             string inputLine;
 
             while ((inputLine = input.ReadLine()) != null)
