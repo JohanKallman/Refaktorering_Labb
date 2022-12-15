@@ -34,8 +34,8 @@ namespace Refactoring_Lab.Models
         int newNumber = numberGenerator.Next(GameAnswer.LowestRandomNumber, GameAnswer.HighestRandomNumber);
         correctAnswer = CheckIfUniqueNumberIsRequired(correctAnswer, newNumber);
       }
-      //return "4423";
-      return correctAnswer;
+      return "3423";
+      //return correctAnswer;
     }
 
     public virtual string CheckIfUniqueNumberIsRequired(string correctAnswer, int newNumber)
@@ -108,8 +108,6 @@ namespace Refactoring_Lab.Models
       return false;
     }
 
-
-
     public string ReturnOutputAfterGuess()
     {
       int numberExistsWrongPositionCounter = 0;
@@ -120,26 +118,69 @@ namespace Refactoring_Lab.Models
       {
         for (int j = 0; j < 4; j++)
         {
-          if (GameAnswer.CorrectAnswer[i] == PlayerGuess.Guess[j] && correctAnswerCheck[i] != "X" && correctGuessCheck[j] != "X")
+
+          if (GameAnswer.CorrectAnswer[i] == PlayerGuess.Guess[j])
           {
-            correctAnswerCheck[i] = "X";
-            correctGuessCheck[j] = "X";
 
             if (i == j)
             {
+              if (correctAnswerCheck[i] == "C" || correctGuessCheck[i] == "C")
+              {
+                numberExistsWrongPositionCounter--;
+              }
+
               correctPositionCounter++;
+              correctAnswerCheck[i] = "B";
+              correctGuessCheck[j] = "B";
 
             }
+
             else
             {
-              numberExistsWrongPositionCounter++;
-            }
 
+              if (correctAnswerCheck[i] == "" && correctGuessCheck[j] == "")
+              {
+                numberExistsWrongPositionCounter++;
+                correctAnswerCheck[i] = "C";
+                correctGuessCheck[j] = "C";
+              }
+            }
           }
         }
       }
       return "BBBB".Substring(0, correctPositionCounter) + "," + "CCCC".Substring(0, numberExistsWrongPositionCounter);
     }
+
+    // public string ReturnOutputAfterGuess()
+    // {
+    //   int numberExistsWrongPositionCounter = 0;
+    //   int correctPositionCounter = 0;
+    //   string[] correctAnswerCheck = { "", "", "", "" };
+    //   string[] correctGuessCheck = { "", "", "", "" };
+    //   for (int i = 0; i < 4; i++)
+    //   {
+    //     for (int j = 0; j < 4; j++)
+    //     {
+    //       if (GameAnswer.CorrectAnswer[i] == PlayerGuess.Guess[j] && correctAnswerCheck[i] != "X" && correctGuessCheck[j] != "X")
+    //       {
+    //         correctAnswerCheck[i] = "X";
+    //         correctGuessCheck[j] = "X";
+
+    //         if (i == j)
+    //         {
+    //           correctPositionCounter++;
+
+    //         }
+    //         else
+    //         {
+    //           numberExistsWrongPositionCounter++;
+    //         }
+
+    //       }
+    //     }
+    //   }
+    //   return "BBBB".Substring(0, correctPositionCounter) + "," + "CCCC".Substring(0, numberExistsWrongPositionCounter);
+    // }
 
     public void CheckIfGameIsOver()
     {
