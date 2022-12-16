@@ -40,7 +40,7 @@ namespace Refactoring_Lab.Models
         }
 
         public void CreateDataForTopList(string gameName, string fileName)
-{
+        {
             StreamReader input = new StreamReader(fileName);
             string inputLine;
 

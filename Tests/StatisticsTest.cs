@@ -105,8 +105,27 @@ namespace Refactoring_Lab.Tests
             expectedFail += string.Format("{0,-9}{1,5:D}{2,9:F2}", player1.PlayerName, player1.NumberOfGames, player1.Average()) + "\n";
 
             Assert.AreNotEqual(result, expectedFail);
-
         }
 
+
+        //Pågående
+        [TestMethod]
+        //[DataRow("MooGame", "result.txt")]
+        public void CreateDataForTopList(/*string gameName, string fileName*/)
+        {
+            string fileName = "DataForTopList.txt";
+            StreamWriter resultOutput = new StreamWriter(fileName, append: true);
+            
+            string gameName = "Moo Game";
+            resultOutput.WriteLine("Player1" + "#&#" + 10 + "#&#" + gameName);
+            resultOutput.WriteLine("Player1" + "#&#" + 20 + "#&#" + gameName);
+
+            //gameName = "Mastermind";
+            //resultOutput.WriteLine("Player1" + "#&#" + 30 + "#&#" + gameName);
+            //resultOutput.WriteLine("Player2" + "#&#" + 40 + "#&#" + gameName);
+            resultOutput.Close();
+
+            statistics.CreateDataForTopList(gameName, fileName);
+        }
     }
 }
