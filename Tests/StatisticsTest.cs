@@ -1,9 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Refactoring_Lab.Interfaces;
 using Refactoring_Lab.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +16,7 @@ namespace Refactoring_Lab.Tests
     public class StatisticsTest
     {
         readonly Statistics statistics = new Statistics();
-     
+
 
         [TestMethod]
         [DataRow("PlayerName", 3, "GameName", "PlayerName#&#3#&#GameName")]
@@ -51,21 +53,60 @@ namespace Refactoring_Lab.Tests
             statistics.playerResults.Clear();
         }
 
-        public void CheckIfPlayerExists(int playerIndex)
+        [TestMethod]
+        [DataRow(-1, false)]
+        [DataRow(0, true)]
+        [DataRow(1, true)]
+        public void CheckIfPlayerExists(int playerIndex, bool expected)
         {
+            bool result = statistics.CheckIfPlayerExists(playerIndex);
+            Assert.AreEqual(result, expected);
+        }
+
+
+        [TestMethod]
+        [DataRow(new string[] { "name", "10" }, 10, "name")]
+        public void CreatePlayerWithNameAndScore(string[] input, int expectedScore, string expectedName)
+        {
+            PlayerData playerResult = statistics.CreatePlayerWithNameAndScore(input);
+            string playerName = playerResult.PlayerName;
+            int playerScore = playerResult.TotalGuesses;
+
+            Assert.AreEqual(playerName, expectedName);
+            Assert.AreEqual(playerScore, expectedScore);
+        }
+
+        [TestMethod]
+        public void SortTopListData()
+        {
+            PlayerData player1 = new PlayerData();
+            player1.PlayerName = "Player1";
+            player1.TotalGuesses = 10;
+            player1.NumberOfGames = 2;
+
+            PlayerData player2 = new PlayerData();
+            player1.PlayerName = "Player2";
+            player2.TotalGuesses = 20;
+            player2.NumberOfGames = 2;
+
+            statistics.playerResults.Add(player1);
+            statistics.playerResults.Add(player2);
+
+            string result = statistics.SortTopListData();
+
+            string expected = "Player   games   average\n";
+            expected += string.Format("{0,-9}{1,5:D}{2,9:F2}", player1.PlayerName, player1.NumberOfGames, player1.Average()) + "\n";
+            expected += string.Format("{0,-9}{1,5:D}{2,9:F2}", player2.PlayerName, player2.NumberOfGames, player2.Average()) + "\n";
+
+            Assert.AreEqual(result, expected);
+
+            string expectedFail = "Player   games   average\n";
+            expectedFail += string.Format("{0,-9}{1,5:D}{2,9:F2}", player2.PlayerName, player2.NumberOfGames, player2.Average()) + "\n";
+            expectedFail += string.Format("{0,-9}{1,5:D}{2,9:F2}", player1.PlayerName, player1.NumberOfGames, player1.Average()) + "\n";
+
+            Assert.AreNotEqual(result, expectedFail);
 
         }
-        //public bool CheckIfPlayerExists(int playerIndex)
-        //{
-        //    if (playerIndex < 0)
-        //    {
-        //        return false;
-        //    }
-        //    return true;
-        //}
-
-
-
 
     }
 }

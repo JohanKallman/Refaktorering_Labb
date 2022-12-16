@@ -12,7 +12,6 @@ namespace Refactoring_Lab.Models
         public IAnswerService GameAnswer { get; set; } = new GameAnswer();
         public IPlayerGuess PlayerGuess { get; set; } = new PlayerGuess();
 
-        //KVAR
         public void StartNewInstanceOfGame(Game game)
         {
             PlayerGuess.ResetGuessingCounter();
@@ -20,13 +19,11 @@ namespace Refactoring_Lab.Models
             Console.WriteLine("For practice, number is: " + GameAnswer.CorrectAnswer + "\n");
         }
 
-        //KVAR
         public virtual void PrepareRoundResult()
         {
             PlayerGuess.OutPutResult = ReturnOutputAfterGuess();
         }
 
-        //KVAR
         public virtual string CheckIfUniqueNumberIsRequired(string correctAnswer, int newNumber)
         {
             if (!correctAnswer.Contains(newNumber.ToString()))
@@ -37,7 +34,6 @@ namespace Refactoring_Lab.Models
             return correctAnswer;
         }
 
-        //KVAR
         public string ReturnOutputAfterGuess()
         {
             int numberExistsWrongPositionCounter = 0;
@@ -81,7 +77,6 @@ namespace Refactoring_Lab.Models
             return "BBBB".Substring(0, correctPositionCounter) + "," + "CCCC".Substring(0, numberExistsWrongPositionCounter);
         }
 
-        //KVAR
         public void CheckIfGameIsOver()
         {
             if (PlayerGuess.OutPutResult == "BBBB,")
@@ -90,7 +85,6 @@ namespace Refactoring_Lab.Models
             }
         }
 
-        //KVAR
         public bool CheckIfPlayAgain()
         {
             if (Console.ReadLine().Trim().ToUpper() == "Q")
