@@ -14,6 +14,7 @@ namespace Refactoring_Lab.Tests
     public class StatisticsTest
     {
         readonly Statistics statistics = new Statistics();
+     
 
         [TestMethod]
         [DataRow("PlayerName", 3, "GameName", "PlayerName#&#3#&#GameName")]
@@ -28,22 +29,43 @@ namespace Refactoring_Lab.Tests
             Assert.AreEqual(inputLine, expected);
         }
 
-        //public string SortTopListData()
-        //{
-        //    playerResults.Sort((p1, p2) => p1.Average().CompareTo(p2.Average()));
-        //    string topList = "Player   games   average\n";
+        [TestMethod]
+        [DataRow(4, 10, 5, 13)]
+        public void UpdatePlayerData(int numberOfGames, int totalGuesses, int expectedNumberOfGames, int expectedtotalGuesses)
+        {
+            PlayerData playerData = new PlayerData();
+            playerData.TotalGuesses = totalGuesses;
+            playerData.NumberOfGames = numberOfGames;
+            statistics.playerResults.Add(playerData);
 
-        //    foreach (PlayerData player in playerResults)
-        //    {
-        //        topList += string.Format("{0,-9}{1,5:D}{2,9:F2}", player.PlayerName, player.NumberOfGames, player.Average()) + "\n";
-        //    }
-        //    playerResults.Clear();
-        //    return topList;
-        //}
+            PlayerData playerData2 = new PlayerData();
+            playerData2.TotalGuesses = 3;
+            statistics.UpdatePlayerData(0, playerData2);
 
-        public void SortTopListData()
+            int resultTotalGuesses = statistics.playerResults[0].TotalGuesses;
+            int resultNumberOfGames = statistics.playerResults[0].NumberOfGames;
+
+            Assert.AreEqual(resultTotalGuesses, expectedtotalGuesses);
+            Assert.AreEqual(resultNumberOfGames, expectedNumberOfGames);
+
+            statistics.playerResults.Clear();
+        }
+
+        public void CheckIfPlayerExists(int playerIndex)
         {
 
         }
+        //public bool CheckIfPlayerExists(int playerIndex)
+        //{
+        //    if (playerIndex < 0)
+        //    {
+        //        return false;
+        //    }
+        //    return true;
+        //}
+
+
+
+
     }
 }

@@ -46,7 +46,7 @@ namespace Refactoring_Lab.Models
                 ArcadeIsRunning = true;
                 _uI.PrintWelcomeMessage(ArcadeName);
                 _uI.PrintGameMenuOptions();
-                _game = GameMenuSelectedOption();     
+                _game = GameMenuSelectedOption();
 
                 if (_game is not null)
                 {

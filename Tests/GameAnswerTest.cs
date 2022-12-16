@@ -12,17 +12,33 @@ namespace Refactoring_Lab.Tests
     public class GameAnswerTest
     {
         readonly GameAnswer gameAnswer = new GameAnswer();
-        readonly Game game = new Mastermind();
+        readonly Game mastermind = new Mastermind();
+        readonly Game mooGame = new Mastermind();
 
         [TestMethod]
-        [DataRow(0, 10)]
         [DataRow(1, 7)]
-        public void GenerateCorrectAnswer(int lowest, int highest)
+        public void GenerateCorrectAnswerMastermind(int lowest, int highest)
         {
             gameAnswer.AmountOfIntegersInAnswer = 4;
             gameAnswer.LowestRandomNumber = lowest;
             gameAnswer.HighestRandomNumber = highest;
-            string result = gameAnswer.GenerateCorrectAnswer(game);
+            string result = gameAnswer.GenerateCorrectAnswer(mastermind);
+
+            bool isDigit = Int32.TryParse(result, out int resultInt);
+
+            Assert.AreEqual(result.Length, gameAnswer.AmountOfIntegersInAnswer);
+            Assert.AreEqual(resultInt.GetType(), 1.GetType());
+            Assert.AreEqual(isDigit, true);
+        }
+
+        [TestMethod]
+        [DataRow(0, 10)]
+        public void GenerateCorrectAnswerMooGame(int lowest, int highest)
+        {
+            gameAnswer.AmountOfIntegersInAnswer = 4;
+            gameAnswer.LowestRandomNumber = lowest;
+            gameAnswer.HighestRandomNumber = highest;
+            string result = gameAnswer.GenerateCorrectAnswer(mooGame);
 
             bool isDigit = Int32.TryParse(result, out int resultInt);
 

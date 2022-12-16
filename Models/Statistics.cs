@@ -11,7 +11,7 @@ namespace Refactoring_Lab.Models
 {
     public class Statistics : IStatistics
     {
-        private List<PlayerData> playerResults = new List<PlayerData>();
+        public List<PlayerData> playerResults = new List<PlayerData>();
 
         public void SaveGameResultToFile(string playerName, int numberOfGuesses, string gameName, string fileName)
         {

@@ -28,6 +28,9 @@ namespace Refactoring_Lab.Tests
 
         [TestMethod]
         [DataRow("Name", "Name")]
+        [DataRow("", "No Name")]
+        [DataRow("   ", "No Name")]
+        //[DataRow(null, "No Name")]
         public void SetPlayerName(string inputName, string expected)
         {
             Console.SetIn(new StringReader(inputName));

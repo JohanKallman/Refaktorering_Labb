@@ -21,9 +21,15 @@ namespace Refactoring_Lab.Models
 
         }
 
+
         public void SetPlayerName()
         {
-            PlayerName = Console.ReadLine();
+            string inputName = Console.ReadLine();
+            if (string.IsNullOrEmpty(inputName))
+            {
+                PlayerName = "No Name";
+            }
+            else PlayerName = inputName;
         }
 
         public void UpdateNumberOfGames()
