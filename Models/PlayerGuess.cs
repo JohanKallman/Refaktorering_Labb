@@ -1,9 +1,6 @@
 ﻿using Refactoring_Lab.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Refactoring_Lab.Models
 {
@@ -14,10 +11,12 @@ namespace Refactoring_Lab.Models
         public string Guess { get; set; }
         public int NumberOfGuesses { get; set; }
         public bool IsValidGuess { get; set; }
+
         public void ResetGuessingCounter()
         {
             NumberOfGuesses = 0;
         }
+
         public void IncrementGuessingCounterByOne()
         {
             NumberOfGuesses++;
@@ -28,6 +27,7 @@ namespace Refactoring_Lab.Models
             Guess = Console.ReadLine().Trim();
             IncrementGuessingCounterByOne();
         }
+
         public bool CheckIfCorrectCharFormat()
         {
             if (Guess.All(char.IsDigit))
@@ -50,6 +50,7 @@ namespace Refactoring_Lab.Models
         {
             IsValidGuess = CheckIfAcceptedFormat(game);
         }
+
         public bool CheckIfAcceptedFormat(Game game)
         {
             bool guessHasCorrectFormat = CheckIfCorrectLengthFormat(game);

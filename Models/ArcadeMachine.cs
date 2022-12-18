@@ -6,17 +6,13 @@ namespace Refactoring_Lab.Models
     public sealed class ArcadeMachine
     {
         private readonly string ArcadeName = "The Arcade";
-
-        public UI _uI;
-        public Game _game;
-
         private readonly IStatistics _statistics;
         private readonly IPlayerData _playerData;
-
+        private static ArcadeMachine _instance;
+        public UI _uI;
+        public Game _game;
         public static bool GameIsRunning { get; set; } = false;
         public static bool ArcadeIsRunning { get; set; }
-
-        private static ArcadeMachine _instance;
 
         public static ArcadeMachine GetInstance()
         {
@@ -25,10 +21,8 @@ namespace Refactoring_Lab.Models
                 UI uI = new UI();
                 IStatistics statistics = new Statistics();
                 IPlayerData playerData = new PlayerData();
-
                 _instance = new ArcadeMachine(uI, statistics, playerData);
             }
-
             return _instance;
         }
 
@@ -52,10 +46,8 @@ namespace Refactoring_Lab.Models
                 {
                     RunGame();
                 }
-
             }
             while (ArcadeIsRunning);
-
             _uI.PrintGoodByeMessage();
         }
 
@@ -69,7 +61,6 @@ namespace Refactoring_Lab.Models
                 GameOver();
             }
             while (GameIsRunning);
-
             _uI.PrintGoodByeMessage();
         }
 
@@ -95,7 +86,6 @@ namespace Refactoring_Lab.Models
                 _uI.PrintRoundStartMessage(_game.PlayerGuess.NumberOfGuesses);
                 _uI.PrintGuessHereMessage();
                 _game.PlayerGuess.PlayerGuesses();
-
                 _game.PlayerGuess.ValidateInputGuess(_game);
 
                 if (_game.PlayerGuess.IsValidGuess == false)
@@ -111,21 +101,17 @@ namespace Refactoring_Lab.Models
                     _uI.PrintResultOfPlayerGuess(_game.PlayerGuess.Guess, _game.PlayerGuess.OutPutResult);
                 }
             }
-
             while (_game.PlayerGuess.PlayerIsGuessing);
-
         }
-
 
         public void GameOver()
         {
             _uI.PrintResultOfGameSession(_game.PlayerGuess.NumberOfGuesses);
-            _uI.PrintTopListListMessage(_game.GameName);
+            _uI.PrintTopListHeaderMessage(_game.GameName);
             _statistics.SaveGameResultToFile(_playerData.PlayerName, _game.PlayerGuess.NumberOfGuesses, _game.GameName, "result.txt");
             _uI.PrintTopList(_statistics.CreateTopList(_game.GameName, "result.txt"));
             _uI.PrintAskToPlayAgainMessage();
             GameIsRunning = _game.CheckIfPlayAgain();
-
         }
 
         public Game GameMenuSelectedOption()
@@ -133,47 +119,16 @@ namespace Refactoring_Lab.Models
             switch (Console.ReadLine().ToUpper())
             {
                 case "1":
-
                     return new MooGame();
-
                 case "2":
                     return new Mastermind();
-
                 case "Q":
                     ArcadeIsRunning = false;
                     return null;
-
                 default:
-                    Console.WriteLine("Felaktigt val. Försök igen.");
+                    _uI.PrintInputErrorMessage();
                     return null;
             }
-
-
         }
-
-        // public Game GameMenu(string input)
-        // {
-        //   switch (input)
-        //   {
-        //     case "1":
-        //       return new MooGame();
-
-
-        //     case "2":
-        //       return new Mastermind();
-
-        //     case "Q":
-        //       ArcadeIsRunning = false;
-        //       return null;
-
-        //     default:
-        //       return null;
-        //   }
-
-
-        // }
-
-
-
     }
 }

@@ -10,7 +10,7 @@ namespace Refactoring_Lab.Interfaces
     void SetPlayerName();
     void UpdateTotalGuesses(int guesses);
     void UpdateNumberOfGames();
-    double Average();
+    double CalculateAverageScore();
     bool Equals(Object p);
     int GetHashCode();
 

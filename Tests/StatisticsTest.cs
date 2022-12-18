@@ -17,7 +17,6 @@ namespace Refactoring_Lab.Tests
     {
         readonly Statistics statistics = new Statistics();
 
-
         [TestMethod]
         [DataRow("PlayerName", 3, "GameName", "PlayerName#&#3#&#GameName")]
         public void SaveGameResultToFile(string inputName, int inputGuesses, string gameName, string expected)
@@ -95,18 +94,17 @@ namespace Refactoring_Lab.Tests
             string result = statistics.SortTopListData();
 
             string expected = "Player   games   average\n";
-            expected += string.Format("{0,-9}{1,5:D}{2,9:F2}", player1.PlayerName, player1.NumberOfGames, player1.Average()) + "\n";
-            expected += string.Format("{0,-9}{1,5:D}{2,9:F2}", player2.PlayerName, player2.NumberOfGames, player2.Average()) + "\n";
+            expected += string.Format("{0,-9}{1,5:D}{2,9:F2}", player1.PlayerName, player1.NumberOfGames, player1.CalculateAverageScore()) + "\n";
+            expected += string.Format("{0,-9}{1,5:D}{2,9:F2}", player2.PlayerName, player2.NumberOfGames, player2.CalculateAverageScore()) + "\n";
 
             Assert.AreEqual(result, expected);
 
             string expectedFail = "Player   games   average\n";
-            expectedFail += string.Format("{0,-9}{1,5:D}{2,9:F2}", player2.PlayerName, player2.NumberOfGames, player2.Average()) + "\n";
-            expectedFail += string.Format("{0,-9}{1,5:D}{2,9:F2}", player1.PlayerName, player1.NumberOfGames, player1.Average()) + "\n";
+            expectedFail += string.Format("{0,-9}{1,5:D}{2,9:F2}", player2.PlayerName, player2.NumberOfGames, player2.CalculateAverageScore()) + "\n";
+            expectedFail += string.Format("{0,-9}{1,5:D}{2,9:F2}", player1.PlayerName, player1.NumberOfGames, player1.CalculateAverageScore()) + "\n";
 
             Assert.AreNotEqual(result, expectedFail);
         }
-
 
         //Pågående
         [TestMethod]

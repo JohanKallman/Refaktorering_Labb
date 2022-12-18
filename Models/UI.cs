@@ -4,19 +4,10 @@ namespace Refactoring_Lab.Models
 {
     public class UI
     {
-
-
-        public UI()
-        {
-
-        }
-
         public void PrintEnterNameMessage()
         {
             Console.Write("Enter name: ");
-
         }
-
 
         public void PrintWelcomeMessage(string gameName)
         {
@@ -47,7 +38,6 @@ namespace Refactoring_Lab.Models
 
         }
 
-
         public void PrintResultOfGameSession(int numberOfGuesses)
         {
             Console.WriteLine("Correct, it took " + numberOfGuesses + " guesses!\n");
@@ -58,14 +48,13 @@ namespace Refactoring_Lab.Models
             Console.WriteLine($"\nYou guessed: {inputGuess}");
             Console.WriteLine($"Result: {outputResult} \n");
         }
-
         public void PrintAskToPlayAgainMessage()
         {
             Console.WriteLine("To play again press any key.\n" +
                               "To quit press 'Q'");
         }
 
-        public void PrintTopListListMessage(string gameName)
+        public void PrintTopListHeaderMessage(string gameName)
         {
             Console.WriteLine($"<([ Top list for {gameName} ])>");
         }
@@ -79,7 +68,6 @@ namespace Refactoring_Lab.Models
         {
             Console.Write("Your guess: ");
         }
-
         public void PrintGoodByeMessage()
         {
             Console.WriteLine("Thank you for playing!");
@@ -89,12 +77,5 @@ namespace Refactoring_Lab.Models
         {
             Console.WriteLine(topList);
         }
-
-
-
-
-
-
-
     }
 }

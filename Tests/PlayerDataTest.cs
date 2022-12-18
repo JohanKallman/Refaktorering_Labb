@@ -22,7 +22,7 @@ namespace Refactoring_Lab.Tests
             playerData.TotalGuesses = totalGuesses;
             playerData.NumberOfGames = numberOfGames;
 
-            double result = playerData.Average();
+            double result = playerData.CalculateAverageScore();
             Assert.AreEqual(result, expected);     
         }
 

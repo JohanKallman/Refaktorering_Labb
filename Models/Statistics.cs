@@ -2,10 +2,6 @@ using Refactoring_Lab.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Numerics;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices.ComTypes;
-using static System.Net.WebRequestMethods;
 
 namespace Refactoring_Lab.Models
 {
@@ -28,12 +24,12 @@ namespace Refactoring_Lab.Models
 
         public string SortTopListData()
         {
-            playerResults.Sort((p1, p2) => p1.Average().CompareTo(p2.Average()));
+            playerResults.Sort((p1, p2) => p1.CalculateAverageScore().CompareTo(p2.CalculateAverageScore()));
             string topList = "Player   games   average\n";
 
             foreach (PlayerData player in playerResults)
             {
-                topList += string.Format("{0,-9}{1,5:D}{2,9:F2}", player.PlayerName, player.NumberOfGames, player.Average()) + "\n";
+                topList += string.Format("{0,-9}{1,5:D}{2,9:F2}", player.PlayerName, player.NumberOfGames, player.CalculateAverageScore()) + "\n";
             }
             playerResults.Clear();
             return topList;
@@ -46,13 +42,12 @@ namespace Refactoring_Lab.Models
 
             while ((inputLine = input.ReadLine()) != null)
             {
-                //TODO: döp om till något med player&game...
-                string[] playerNameAndScore = inputLine.Split(new string[] { "#&#" }, StringSplitOptions.None);
-                string game = playerNameAndScore[2];
+                string[] playerData = inputLine.Split(new string[] { "#&#" }, StringSplitOptions.None);
+                string game = playerData[2];
 
                 if (gameName == game)
                 {
-                    PlayerData player = CreatePlayerWithNameAndScore(playerNameAndScore);
+                    PlayerData player = CreatePlayerWithNameAndScore(playerData);
                     int playerIndex = playerResults.IndexOf(player);
 
                     if (CheckIfPlayerExists(playerIndex) == false)
@@ -68,10 +63,10 @@ namespace Refactoring_Lab.Models
             input.Close();
         }
 
-        public PlayerData CreatePlayerWithNameAndScore(string[] playerNameAndScore)
+        public PlayerData CreatePlayerWithNameAndScore(string[] playerData)
         {
-            string playerName = playerNameAndScore[0];
-            int playerScore = Convert.ToInt32(playerNameAndScore[1]);
+            string playerName = playerData[0];
+            int playerScore = Convert.ToInt32(playerData[1]);
             PlayerData player = new PlayerData(playerName, playerScore);
             return player;
         }

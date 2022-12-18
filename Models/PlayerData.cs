@@ -8,19 +8,15 @@ namespace Refactoring_Lab.Models
         public string PlayerName { get; set; }
         public int NumberOfGames { get; set; }
         public int TotalGuesses { get; set; }
-
+        public PlayerData()
+        {
+        }
         public PlayerData(string name, int guesses)
         {
             PlayerName = name;
             NumberOfGames = 1;
             TotalGuesses = guesses;
         }
-
-        public PlayerData()
-        {
-
-        }
-
 
         public void SetPlayerName()
         {
@@ -42,23 +38,19 @@ namespace Refactoring_Lab.Models
             TotalGuesses += guesses;
         }
 
-        public double Average()
+        public double CalculateAverageScore()
         {
             return (double)TotalGuesses / NumberOfGames;
         }
 
-        //KVAR
         public override bool Equals(Object p)
         {
             return PlayerName.Equals(((PlayerData)p).PlayerName);
         }
 
-        //KVAR
         public override int GetHashCode()
         {
             return PlayerName.GetHashCode();
         }
-
-
     }
 }

@@ -9,8 +9,7 @@ namespace Refactoring_Lab.Interfaces
         string CreateTopList(string gameName, string fileName);
         string SortTopListData();
         void CreateDataForTopList(string gameName, string fileName);
-
-        PlayerData CreatePlayerWithNameAndScore(string[] playerNameAndScore);
+        PlayerData CreatePlayerWithNameAndScore(string[] playerData);
         bool CheckIfPlayerExists(int playerIndex);
         void UpdatePlayerData(int playerIndex, PlayerData player);
     }

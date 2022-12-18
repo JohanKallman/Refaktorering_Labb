@@ -4,7 +4,7 @@ using Refactoring_Lab.Models;
 namespace Refactoring_Lab.Tests
 {
   [TestClass]
-  public class MasterMindTest
+  public class MastermindTest
   {
     readonly Mastermind mastermind = new Mastermind();
 

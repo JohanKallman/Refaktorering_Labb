@@ -1,6 +1,5 @@
 ﻿using Refactoring_Lab.Interfaces;
 using System;
-using System.Linq;
 
 namespace Refactoring_Lab.Models
 {
@@ -30,7 +29,6 @@ namespace Refactoring_Lab.Models
             {
                 correctAnswer += newNumber.ToString();
             }
-
             return correctAnswer;
         }
 
@@ -44,26 +42,20 @@ namespace Refactoring_Lab.Models
             {
                 for (int j = 0; j < 4; j++)
                 {
-
                     if (GameAnswer.CorrectAnswer[i] == PlayerGuess.Guess[j])
                     {
-
                         if (i == j)
                         {
                             if (correctAnswerCheck[i] == "C" || correctGuessCheck[i] == "C")
                             {
                                 numberExistsWrongPositionCounter--;
                             }
-
                             correctPositionCounter++;
                             correctAnswerCheck[i] = "B";
                             correctGuessCheck[j] = "B";
-
                         }
-
                         else
                         {
-
                             if (correctAnswerCheck[i] == "" && correctGuessCheck[j] == "")
                             {
                                 numberExistsWrongPositionCounter++;
@@ -84,7 +76,6 @@ namespace Refactoring_Lab.Models
                 PlayerGuess.PlayerIsGuessing = false;
             }
         }
-
         public bool CheckIfPlayAgain()
         {
             if (Console.ReadLine().Trim().ToUpper() == "Q")
@@ -94,7 +85,4 @@ namespace Refactoring_Lab.Models
             return true;
         }
     }
-
-
-
 }

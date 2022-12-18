@@ -1,5 +1,3 @@
-using Refactoring_Lab.Interfaces;
-
 namespace Refactoring_Lab.Models
 {
     public class MooGame : Game

@@ -1,6 +1,4 @@
-using System;
 using System.Linq;
-using Refactoring_Lab.Interfaces;
 
 namespace Refactoring_Lab.Models
 {
@@ -27,17 +25,15 @@ namespace Refactoring_Lab.Models
             return correctAnswer += newNumber.ToString();
         }
 
-
         public string FromNumberToColor()
         {
-            var intArray = ConvertStringToIntArray();
+            int[] guessArray = ConvertStringToIntArray();
             PlayerGuess.Guess = "";
-            foreach (var number in intArray)
+            foreach (int number in guessArray)
             {
                 PlayerGuess.Guess += (Color)number + ", ";
             }
             return PlayerGuess.Guess;
-
         }
 
         public int[] ConvertStringToIntArray()
