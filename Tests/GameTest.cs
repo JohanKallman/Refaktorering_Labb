@@ -21,7 +21,7 @@ namespace Refactoring_Lab.Tests
         [DataRow("3213", "1233", "BB,CC")]
         public void ReturnOutputAfterGuess(string input, string correctAnswer, string expected)
         {
-            string result = game.OutPutResult.ReturnOutputAfterGuess(correctAnswer, input);
+            string result = game.OutputResult.ReturnOutputAfterGuess(correctAnswer, input);
             Assert.AreEqual(result, expected);
         }
 

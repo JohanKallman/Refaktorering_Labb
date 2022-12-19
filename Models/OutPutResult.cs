@@ -2,7 +2,7 @@
 
 namespace Refactoring_Lab.Models
 {
-    public class OutPutResult
+    public class OutputResult
     {
         string _correctAnswer = "";
         string _guess = "";

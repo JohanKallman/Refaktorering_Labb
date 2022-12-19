@@ -10,7 +10,7 @@ namespace Refactoring_Lab.Models
         public bool GameIsRunning { get; set; } = false;
         public IAnswerService GameAnswer { get; set; } = new GameAnswer();
         public IPlayerGuess PlayerGuess { get; set; } = new PlayerGuess();
-        public OutPutResult OutPutResult { get; set; } = new OutPutResult();
+        public OutputResult OutputResult { get; set; } = new OutputResult();
         public string GameWinningCondition { get; set; } = "";
 
         public void StartNewInstanceOfGame(Game game)
@@ -22,7 +22,7 @@ namespace Refactoring_Lab.Models
 
         public virtual void PrepareRoundResult()
         {
-            PlayerGuess.OutPutResult = OutPutResult.ReturnOutputAfterGuess(GameAnswer.CorrectAnswer, PlayerGuess    .Guess);
+            PlayerGuess.OutPutResult = OutputResult.ReturnOutputAfterGuess(GameAnswer.CorrectAnswer, PlayerGuess    .Guess);
         }
 
         public virtual string FormatAnswerToSpecificGame(string correctAnswer, int newNumber)
