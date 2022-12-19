@@ -17,7 +17,7 @@ namespace Refactoring_Lab.Models
             while (correctAnswer.Length < AmountOfIntegersInAnswer)
             {
                 int newNumber = numberGenerator.Next(LowestRandomNumber, HighestRandomNumber);
-                correctAnswer = game.CheckIfUniqueNumberIsRequired(correctAnswer, newNumber);
+                correctAnswer = game.FormatAnswerToSpecificGame(correctAnswer, newNumber);
             }
             return correctAnswer;
         }

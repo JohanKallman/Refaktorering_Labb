@@ -20,7 +20,7 @@ namespace Refactoring_Lab.Models
             PlayerGuess.Guess = FromNumberToColor();
         }
 
-        public override string CheckIfUniqueNumberIsRequired(string correctAnswer, int newNumber)
+        public override string FormatAnswerToSpecificGame(string correctAnswer, int newNumber)
         {
             return correctAnswer += newNumber.ToString();
         }

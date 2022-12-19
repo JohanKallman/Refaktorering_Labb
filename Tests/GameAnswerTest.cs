@@ -47,7 +47,5 @@ namespace Refactoring_Lab.Tests
             Assert.AreEqual(isDigit, true);
         }
 
-        //Fixa likadant för MooGame
-
     }
 }

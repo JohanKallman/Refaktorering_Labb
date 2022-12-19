@@ -23,7 +23,7 @@ namespace Refactoring_Lab.Models
             PlayerGuess.OutPutResult = ReturnOutputAfterGuess();
         }
 
-        public virtual string CheckIfUniqueNumberIsRequired(string correctAnswer, int newNumber)
+        public virtual string FormatAnswerToSpecificGame(string correctAnswer, int newNumber)
         {
             if (!correctAnswer.Contains(newNumber.ToString()))
             {

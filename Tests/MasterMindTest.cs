@@ -11,9 +11,9 @@ namespace Refactoring_Lab.Tests
     [TestMethod]
     [DataRow("123", 4, "1234")]
     [DataRow("123", 3, "1233")]
-    public void CheckIfUniqueNumberIsRequired(string input, int numberToAdd, string expected)
+    public void FormatAnswerToSpecificGame(string input, int numberToAdd, string expected)
     {
-      string result = mastermind.CheckIfUniqueNumberIsRequired(input, numberToAdd);
+      string result = mastermind.FormatAnswerToSpecificGame(input, numberToAdd);
       Assert.AreEqual(result, expected);
     }
 
