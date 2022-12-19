@@ -77,5 +77,10 @@ namespace Refactoring_Lab.Models
         {
             Console.WriteLine(topList);
         }
+
+        public void PrintPracticeAnswerMessage(string correctAnswer)
+        {
+            Console.WriteLine("For practice, number is: " + correctAnswer + "\n");
+        }
     }
 }

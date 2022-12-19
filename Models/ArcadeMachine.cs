@@ -76,6 +76,7 @@ namespace Refactoring_Lab.Models
         public void GameSession()
         {
             _game.StartNewInstanceOfGame(_game);
+            _uI.PrintPracticeAnswerMessage(_game.GameAnswer.CorrectAnswer);
             RunningRounds();
         }
 
@@ -117,7 +118,7 @@ namespace Refactoring_Lab.Models
 
         public Game GameMenuSelectedOption()
         {
-            switch (Console.ReadLine().ToUpper())
+            switch (Console.ReadLine().Trim().ToUpper())
             {
                 case "1":
                     return new MooGame();

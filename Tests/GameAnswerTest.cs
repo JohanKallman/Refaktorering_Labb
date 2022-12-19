@@ -22,8 +22,8 @@ namespace Refactoring_Lab.Tests
             gameAnswer.AmountOfIntegersInAnswer = 4;
             gameAnswer.LowestRandomNumber = lowest;
             gameAnswer.HighestRandomNumber = highest;
-            string result = gameAnswer.GenerateCorrectAnswer(mastermind);
 
+            string result = gameAnswer.GenerateCorrectAnswer(mastermind);
             bool isDigit = Int32.TryParse(result, out int resultInt);
 
             Assert.AreEqual(result.Length, gameAnswer.AmountOfIntegersInAnswer);
@@ -38,14 +38,13 @@ namespace Refactoring_Lab.Tests
             gameAnswer.AmountOfIntegersInAnswer = 4;
             gameAnswer.LowestRandomNumber = lowest;
             gameAnswer.HighestRandomNumber = highest;
-            string result = gameAnswer.GenerateCorrectAnswer(mooGame);
 
+            string result = gameAnswer.GenerateCorrectAnswer(mooGame);
             bool isDigit = Int32.TryParse(result, out int resultInt);
 
             Assert.AreEqual(result.Length, gameAnswer.AmountOfIntegersInAnswer);
             Assert.AreEqual(resultInt.GetType(), 1.GetType());
             Assert.AreEqual(isDigit, true);
         }
-
     }
 }

@@ -8,6 +8,7 @@ namespace Refactoring_Lab.Models
         public string PlayerName { get; set; }
         public int NumberOfGames { get; set; }
         public int TotalGuesses { get; set; }
+        public string DefaultName { get; set; } = "No Name";
         public PlayerData()
         {
         }
@@ -23,7 +24,7 @@ namespace Refactoring_Lab.Models
             string inputName = Console.ReadLine();
             if (string.IsNullOrEmpty(inputName))
             {
-                PlayerName = "No Name";
+                PlayerName = DefaultName;
             }
             else PlayerName = inputName;
         }

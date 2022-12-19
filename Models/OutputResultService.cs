@@ -2,7 +2,7 @@
 
 namespace Refactoring_Lab.Models
 {
-    public class OutputResult
+    public class OutputResultService
     {
         string _correctAnswer = "";
         string _guess = "";
@@ -10,31 +10,25 @@ namespace Refactoring_Lab.Models
         int _numberExistsWrongPositionCounter = 0;
         string[] _correctAnswerCheck = { "", "", "", "" };
         string[] _correctGuessCheck = { "", "", "", "" };
-        string _bulls;
-        string _cows;
-        //public static string Bulls { get; set; } = "BBBB";
+        string _rightPosition;
+        string _wrongPosition;
         int i;
         int j;
 
-        //public string ReturnOutputAfterGuess(string correctAnswer, string guess)
-        //{
-        //    _correctAnswer = correctAnswer;
-        //    _guess = guess;
-        //    ResetResultOutputCheckers();
-        //    CheckCorrectAnswer();
-        //    return _bulls.Substring(0, _correctPositionCounter) + "," + _cows.Substring(0, _numberExistsWrongPositionCounter);
-        //}
-
         public string ReturnOutputAfterGuess(Game game)
         {
-            _bulls = game.GameWinningCondition;
-            _cows = new string('C', _bulls.Length);
-
-            _correctAnswer = game.GameAnswer.CorrectAnswer;
-            _guess = game.PlayerGuess.Guess;
+            SetFields(game);
             ResetResultOutputCheckers();
             CheckCorrectAnswer();
-            return _bulls.Substring(0, _correctPositionCounter) + "," + _cows.Substring(0, _numberExistsWrongPositionCounter);
+            return _rightPosition.Substring(0, _correctPositionCounter) + "," + _wrongPosition.Substring(0, _numberExistsWrongPositionCounter);
+        }
+
+        public void SetFields(Game game)
+        {
+            _correctAnswer = game.GameAnswer.CorrectAnswer;
+            _guess = game.PlayerGuess.Guess;
+            _rightPosition = game.GameWinningCondition;
+            _wrongPosition = new string('C', _rightPosition.Length);
         }
 
         public void ResetResultOutputCheckers()
@@ -47,7 +41,7 @@ namespace Refactoring_Lab.Models
 
         public void CheckCorrectAnswer()
         {
-            for (i = 0; i < 4; i++)
+            for (i = 0; i < _correctAnswer.Length; i++)
             {
                 CheckPlayerGuess();
             }
@@ -56,7 +50,7 @@ namespace Refactoring_Lab.Models
 
         public void CheckPlayerGuess()
         {
-            for (j = 0; j < 4; j++)
+            for (j = 0; j < _guess.Length; j++)
             {
                 CheckIfCorrectAnswerContainsGuess();
             }

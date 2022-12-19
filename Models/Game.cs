@@ -7,22 +7,21 @@ namespace Refactoring_Lab.Models
     {
         public string GameName { get; set; }
         public string Rules { get; set; }
-        public bool GameIsRunning { get; set; } = false;
+        public bool GameIsRunning { get; set; }
         public IAnswerService GameAnswer { get; set; } = new GameAnswer();
         public IPlayerGuess PlayerGuess { get; set; } = new PlayerGuess();
-        public OutputResult OutputResult { get; set; } = new OutputResult();
-        public string GameWinningCondition { get; set; } 
+        public OutputResultService OutputResultService { get; set; } = new OutputResultService();
+        public string GameWinningCondition { get; set; }
 
         public void StartNewInstanceOfGame(Game game)
         {
             PlayerGuess.ResetGuessingCounter();
             GameAnswer.CorrectAnswer = GameAnswer.GenerateCorrectAnswer(game);
-            Console.WriteLine("For practice, number is: " + GameAnswer.CorrectAnswer + "\n");
         }
 
         public virtual void PrepareRoundResult(Game game)
         {
-            PlayerGuess.OutputResult = OutputResult.ReturnOutputAfterGuess(game);
+            PlayerGuess.OutputResult = OutputResultService.ReturnOutputAfterGuess(game);
         }
 
         public virtual string FormatAnswerToSpecificGame(string correctAnswer, int newNumber)

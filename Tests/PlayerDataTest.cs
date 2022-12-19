@@ -23,6 +23,7 @@ namespace Refactoring_Lab.Tests
             playerData.NumberOfGames = numberOfGames;
 
             double result = playerData.CalculateAverageScore();
+
             Assert.AreEqual(result, expected);     
         }
 
@@ -30,12 +31,14 @@ namespace Refactoring_Lab.Tests
         [DataRow("Name", "Name")]
         [DataRow("", "No Name")]
         [DataRow("   ", "No Name")]
-        //[DataRow(null, "No Name")]
         public void SetPlayerName(string inputName, string expected)
         {
             Console.SetIn(new StringReader(inputName));
+
             playerData.SetPlayerName();
+
             var result = playerData.PlayerName;
+
             StringAssert.Equals(result, expected);
         }
 
@@ -46,7 +49,9 @@ namespace Refactoring_Lab.Tests
         {
             playerData.NumberOfGames = input;
             playerData.UpdateNumberOfGames();
+
             int result = playerData.NumberOfGames;
+
             Assert.AreEqual(result, expected);
         }
 
@@ -57,11 +62,10 @@ namespace Refactoring_Lab.Tests
         {
             playerData.TotalGuesses = input;
             playerData.UpdateTotalGuesses(numberToAdd);
+
             int result = playerData.TotalGuesses;
 
             Assert.AreEqual(result, expected);
         }
-
-
     }
 }

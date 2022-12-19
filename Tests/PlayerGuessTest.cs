@@ -29,7 +29,9 @@ namespace Refactoring_Lab.Tests
         public void CheckIfCorrectCharFormat(string input, bool expected)
         {
             playerGuess.Guess = input;
+
             bool result = playerGuess.CheckIfCorrectCharFormat();
+
             Assert.AreEqual(result, expected);
         }
 
@@ -42,12 +44,13 @@ namespace Refactoring_Lab.Tests
         [DataRow("1337777", false)]
         [DataRow("111guess", false)]
         [DataRow("guess", false)]
-        //[DataRow("", false)]
         public void CheckIfCorrectLengthFormat(string input, bool expected)
         {
             gameAnswer.AmountOfIntegersInAnswer = 4;
             playerGuess.Guess = input;
+
             bool result = playerGuess.CheckIfCorrectLengthFormat(game);
+
             Assert.AreEqual(result, expected);
         }
 
@@ -57,7 +60,9 @@ namespace Refactoring_Lab.Tests
         {
             playerGuess.NumberOfGuesses = input;
             playerGuess.ResetGuessingCounter();
+
             int result = playerGuess.NumberOfGuesses;
+
             Assert.AreEqual(result, expected);
         }
 
@@ -67,10 +72,11 @@ namespace Refactoring_Lab.Tests
         {
             playerGuess.NumberOfGuesses = input;
             playerGuess.IncrementGuessingCounterByOne();
+
             int result = playerGuess.NumberOfGuesses;
+
             Assert.AreEqual(result, expected);
         }
-
 
         [TestMethod]
         [DataRow("1111", "1111")]
@@ -79,8 +85,11 @@ namespace Refactoring_Lab.Tests
         public void PlayerGuesses(string input, string expected)
         {
             Console.SetIn(new StringReader(input));
+
             playerGuess.PlayerGuesses();
+
             string result = playerGuess.Guess;
+
             Assert.AreEqual(result, expected);
         }
 
@@ -92,6 +101,7 @@ namespace Refactoring_Lab.Tests
         {
             playerGuess.Guess = input;
             gameAnswer.AmountOfIntegersInAnswer = allowedInputLength;
+
             bool result = playerGuess.CheckIfAcceptedFormat(game);
            
             Assert.AreEqual(result, expected);
@@ -106,9 +116,10 @@ namespace Refactoring_Lab.Tests
             playerGuess.Guess = input;
             gameAnswer.AmountOfIntegersInAnswer = allowedInputLength;
             playerGuess.ValidateInputGuess(game);
-            bool result = playerGuess.IsValidGuess;
-            Assert.AreEqual(result, expected);
 
+            bool result = playerGuess.IsValidGuess;
+
+            Assert.AreEqual(result, expected);
         }
     }
 }

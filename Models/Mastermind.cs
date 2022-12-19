@@ -17,7 +17,7 @@ namespace Refactoring_Lab.Models
 
         public override void PrepareRoundResult(Game game)
         {
-            PlayerGuess.OutputResult = OutputResult.ReturnOutputAfterGuess(game);
+            PlayerGuess.OutputResult = OutputResultService.ReturnOutputAfterGuess(game);
             PlayerGuess.Guess = FromNumberToColor();
         }
 
@@ -41,7 +41,5 @@ namespace Refactoring_Lab.Models
         {
             return PlayerGuess.Guess.Select(x => int.Parse(x.ToString())).ToArray();
         }
-
-
     }
 }

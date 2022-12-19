@@ -22,11 +22,13 @@ namespace Refactoring_Lab.Tests
         public void SaveGameResultToFile(string inputName, int inputGuesses, string gameName, string expected)
         {
             statistics.SaveGameResultToFile(inputName, inputGuesses, gameName, "testresult.txt");
+
             StreamReader input = new StreamReader("testresult.txt");
+
             string inputLine;
             inputLine = input.ReadLine();
-
             input.Close();
+
             Assert.AreEqual(inputLine, expected);
         }
 
@@ -62,12 +64,12 @@ namespace Refactoring_Lab.Tests
             Assert.AreEqual(result, expected);
         }
 
-
         [TestMethod]
         [DataRow(new string[] { "name", "10" }, 10, "name")]
         public void CreatePlayerWithNameAndScore(string[] input, int expectedScore, string expectedName)
         {
             PlayerData playerResult = statistics.CreatePlayerWithNameAndScore(input);
+
             string playerName = playerResult.PlayerName;
             int playerScore = playerResult.TotalGuesses;
 
@@ -104,26 +106,6 @@ namespace Refactoring_Lab.Tests
             expectedFail += string.Format("{0,-9}{1,5:D}{2,9:F2}", player1.PlayerName, player1.NumberOfGames, player1.CalculateAverageScore()) + "\n";
 
             Assert.AreNotEqual(result, expectedFail);
-        }
-
-        //Pågående
-        [TestMethod]
-        //[DataRow("MooGame", "result.txt")]
-        public void CreateDataForTopList(/*string gameName, string fileName*/)
-        {
-            string fileName = "DataForTopList.txt";
-            StreamWriter resultOutput = new StreamWriter(fileName, append: true);
-            
-            string gameName = "Moo Game";
-            resultOutput.WriteLine("Player1" + "#&#" + 10 + "#&#" + gameName);
-            resultOutput.WriteLine("Player1" + "#&#" + 20 + "#&#" + gameName);
-
-            //gameName = "Mastermind";
-            //resultOutput.WriteLine("Player1" + "#&#" + 30 + "#&#" + gameName);
-            //resultOutput.WriteLine("Player2" + "#&#" + 40 + "#&#" + gameName);
-            resultOutput.Close();
-
-            statistics.CreateDataForTopList(gameName, fileName);
         }
     }
 }

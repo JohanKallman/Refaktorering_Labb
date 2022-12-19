@@ -18,7 +18,9 @@ namespace Refactoring_Lab.Tests
         {
             game.PlayerGuess.Guess = input;
             game.GameAnswer.CorrectAnswer = correctAnswer;
-            string result = game.OutputResult.ReturnOutputAfterGuess(game);
+
+            string result = game.OutputResultService.ReturnOutputAfterGuess(game);
+
             Assert.AreEqual(result, expected);
         }
 
@@ -31,6 +33,7 @@ namespace Refactoring_Lab.Tests
             game.PlayerGuess.PlayerIsGuessing = true;
             game.PlayerGuess.OutputResult = input;
             game.CheckIfGameIsOver();
+
             bool result = game.PlayerGuess.PlayerIsGuessing;
 
             Assert.AreEqual(result, expected);
@@ -44,7 +47,9 @@ namespace Refactoring_Lab.Tests
         public void CheckIfPlayAgain(string input, bool expected)
         {
             Console.SetIn(new StringReader(input));
+
             bool result = game.CheckIfPlayAgain();
+
             StringAssert.Equals(result, expected);
         }
     }
