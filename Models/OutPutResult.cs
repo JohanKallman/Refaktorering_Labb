@@ -10,16 +10,31 @@ namespace Refactoring_Lab.Models
         int _numberExistsWrongPositionCounter = 0;
         string[] _correctAnswerCheck = { "", "", "", "" };
         string[] _correctGuessCheck = { "", "", "", "" };
+        string _bulls;
+        string _cows;
+        //public static string Bulls { get; set; } = "BBBB";
         int i;
         int j;
 
-        public string ReturnOutputAfterGuess(string correctAnswer, string guess)
+        //public string ReturnOutputAfterGuess(string correctAnswer, string guess)
+        //{
+        //    _correctAnswer = correctAnswer;
+        //    _guess = guess;
+        //    ResetResultOutputCheckers();
+        //    CheckCorrectAnswer();
+        //    return _bulls.Substring(0, _correctPositionCounter) + "," + _cows.Substring(0, _numberExistsWrongPositionCounter);
+        //}
+
+        public string ReturnOutputAfterGuess(Game game)
         {
-            _correctAnswer = correctAnswer;
-            _guess = guess;
+            _bulls = game.GameWinningCondition;
+            _cows = new string('C', _bulls.Length);
+
+            _correctAnswer = game.GameAnswer.CorrectAnswer;
+            _guess = game.PlayerGuess.Guess;
             ResetResultOutputCheckers();
             CheckCorrectAnswer();
-            return "BBBB".Substring(0, _correctPositionCounter) + "," + "CCCC".Substring(0, _numberExistsWrongPositionCounter);
+            return _bulls.Substring(0, _correctPositionCounter) + "," + _cows.Substring(0, _numberExistsWrongPositionCounter);
         }
 
         public void ResetResultOutputCheckers()

@@ -5,14 +5,15 @@ namespace Refactoring_Lab.Models
 {
     public sealed class ArcadeMachine
     {
-        private readonly string ArcadeName = "The Arcade";
+        private readonly string _arcadeName = "The Arcade";
+        private readonly string _fileName = "result.txt";
         private readonly IStatistics _statistics;
         private readonly IPlayerData _playerData;
+        private bool _gameIsRunning;
+        private bool _arcadeIsRunning;
         private static ArcadeMachine _instance;
-        public UI _uI;
-        public Game _game;
-        public static bool GameIsRunning { get; set; } = false;
-        public static bool ArcadeIsRunning { get; set; }
+        private UI _uI;
+        private Game _game;
 
         public static ArcadeMachine GetInstance()
         {
@@ -25,6 +26,7 @@ namespace Refactoring_Lab.Models
             }
             return _instance;
         }
+
         private ArcadeMachine(UI uI, IStatistics statistics, IPlayerData playerData)
         {
             _uI = uI;
@@ -36,8 +38,8 @@ namespace Refactoring_Lab.Models
         {
             do
             {
-                ArcadeIsRunning = true;
-                _uI.PrintWelcomeMessage(ArcadeName);
+                _arcadeIsRunning = true;
+                _uI.PrintWelcomeMessage(_arcadeName);
                 _uI.PrintGameMenuOptions();
                 _game = GameMenuSelectedOption();
 
@@ -46,7 +48,7 @@ namespace Refactoring_Lab.Models
                     RunGame();
                 }
             }
-            while (ArcadeIsRunning);
+            while (_arcadeIsRunning);
             _uI.PrintGoodByeMessage();
         }
 
@@ -54,12 +56,12 @@ namespace Refactoring_Lab.Models
         {
             do
             {
-                GameIsRunning = true;
+                _gameIsRunning = true;
                 RunStartup();
                 GameSession();
                 GameOver();
             }
-            while (GameIsRunning);
+            while (_gameIsRunning);
             _uI.PrintGoodByeMessage();
         }
 
@@ -95,9 +97,9 @@ namespace Refactoring_Lab.Models
 
                 else
                 {
-                    _game.PrepareRoundResult();
+                    _game.PrepareRoundResult(_game);
                     _game.CheckIfGameIsOver();
-                    _uI.PrintResultOfPlayerGuess(_game.PlayerGuess.Guess, _game.PlayerGuess.OutPutResult);
+                    _uI.PrintResultOfPlayerGuess(_game.PlayerGuess.Guess, _game.PlayerGuess.OutputResult);
                 }
             }
             while (_game.PlayerGuess.PlayerIsGuessing);
@@ -107,10 +109,10 @@ namespace Refactoring_Lab.Models
         {
             _uI.PrintResultOfGameSession(_game.PlayerGuess.NumberOfGuesses);
             _uI.PrintTopListHeaderMessage(_game.GameName);
-            _statistics.SaveGameResultToFile(_playerData.PlayerName, _game.PlayerGuess.NumberOfGuesses, _game.GameName, "result.txt");
-            _uI.PrintTopList(_statistics.CreateTopList(_game.GameName, "result.txt"));
+            _statistics.SaveGameResultToFile(_playerData.PlayerName, _game.PlayerGuess.NumberOfGuesses, _game.GameName, _fileName);
+            _uI.PrintTopList(_statistics.CreateTopList(_game.GameName, _fileName));
             _uI.PrintAskToPlayAgainMessage();
-            GameIsRunning = _game.CheckIfPlayAgain();
+            _gameIsRunning = _game.CheckIfPlayAgain();
         }
 
         public Game GameMenuSelectedOption()
@@ -122,7 +124,7 @@ namespace Refactoring_Lab.Models
                 case "2":
                     return new Mastermind();
                 case "Q":
-                    ArcadeIsRunning = false;
+                    _arcadeIsRunning = false;
                     return null;
                 default:
                     _uI.PrintInputErrorMessage();

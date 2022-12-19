@@ -8,11 +8,13 @@ namespace Refactoring_Lab.Models
     public class Statistics : IStatistics
     {
         public List<PlayerData> playerResults = new List<PlayerData>();
+        private readonly string _separator = "#&#";
+        private readonly string _topListHeader = "Player   games   average\n";
 
         public void SaveGameResultToFile(string playerName, int numberOfGuesses, string gameName, string fileName)
         {
             StreamWriter resultOutput = new StreamWriter(fileName, append: true);
-            resultOutput.WriteLine(playerName + "#&#" + numberOfGuesses + "#&#" + gameName);
+            resultOutput.WriteLine(playerName + _separator + numberOfGuesses + _separator + gameName);
             resultOutput.Close();
         }
 
@@ -25,7 +27,8 @@ namespace Refactoring_Lab.Models
         public string SortTopListData()
         {
             playerResults.Sort((p1, p2) => p1.CalculateAverageScore().CompareTo(p2.CalculateAverageScore()));
-            string topList = "Player   games   average\n";
+   
+            string topList = _topListHeader;
 
             foreach (PlayerData player in playerResults)
             {
@@ -42,7 +45,7 @@ namespace Refactoring_Lab.Models
 
             while ((inputLine = input.ReadLine()) != null)
             {
-                string[] playerData = inputLine.Split(new string[] { "#&#" }, StringSplitOptions.None);
+                string[] playerData = inputLine.Split(new string[] { _separator }, StringSplitOptions.None);
                 string game = playerData[2];
 
                 if (gameName == game)

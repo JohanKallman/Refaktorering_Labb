@@ -1,15 +1,10 @@
 ﻿using Refactoring_Lab.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Refactoring_Lab.Interfaces
 {
     public interface IPlayerGuess
     {
-        string OutPutResult { get; set; }
+        string OutputResult { get; set; }
         bool PlayerIsGuessing { get; set; }
         string Guess { get; set; }
         int NumberOfGuesses { get; set; }
@@ -21,7 +16,5 @@ namespace Refactoring_Lab.Interfaces
         bool CheckIfCorrectLengthFormat(Game game);
         bool CheckIfAcceptedFormat(Game game);
         void ValidateInputGuess(Game game);
-
-
     }
 }

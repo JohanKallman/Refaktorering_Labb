@@ -15,9 +15,9 @@ namespace Refactoring_Lab.Models
             GameWinningCondition = "BBBB,";
         }
 
-        public override void PrepareRoundResult()
+        public override void PrepareRoundResult(Game game)
         {
-            PlayerGuess.OutPutResult = OutputResult.ReturnOutputAfterGuess(GameAnswer.CorrectAnswer, PlayerGuess.Guess);
+            PlayerGuess.OutputResult = OutputResult.ReturnOutputAfterGuess(game);
             PlayerGuess.Guess = FromNumberToColor();
         }
 

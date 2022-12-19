@@ -43,9 +43,13 @@ namespace Refactoring_Lab.Models
             return (double)TotalGuesses / NumberOfGames;
         }
 
-        public override bool Equals(Object p)
+        //=============================================
+        // Since we create a new PlayerData to create data for the TopList,
+        // we check if a player with that name already exist in the TopList.
+        //-----------------------------------------
+        public override bool Equals(Object obj)
         {
-            return PlayerName.Equals(((PlayerData)p).PlayerName);
+            return PlayerName.Equals(((PlayerData)obj).PlayerName);
         }
 
         public override int GetHashCode()

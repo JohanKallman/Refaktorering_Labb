@@ -6,7 +6,7 @@ namespace Refactoring_Lab.Models
 {
     public class PlayerGuess : IPlayerGuess
     {
-        public string OutPutResult { get; set; }
+        public string OutputResult { get; set; }
         public bool PlayerIsGuessing { get; set; }
         public string Guess { get; set; }
         public int NumberOfGuesses { get; set; }

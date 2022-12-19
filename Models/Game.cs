@@ -11,7 +11,7 @@ namespace Refactoring_Lab.Models
         public IAnswerService GameAnswer { get; set; } = new GameAnswer();
         public IPlayerGuess PlayerGuess { get; set; } = new PlayerGuess();
         public OutputResult OutputResult { get; set; } = new OutputResult();
-        public string GameWinningCondition { get; set; } = "";
+        public string GameWinningCondition { get; set; } 
 
         public void StartNewInstanceOfGame(Game game)
         {
@@ -20,9 +20,9 @@ namespace Refactoring_Lab.Models
             Console.WriteLine("For practice, number is: " + GameAnswer.CorrectAnswer + "\n");
         }
 
-        public virtual void PrepareRoundResult()
+        public virtual void PrepareRoundResult(Game game)
         {
-            PlayerGuess.OutPutResult = OutputResult.ReturnOutputAfterGuess(GameAnswer.CorrectAnswer, PlayerGuess    .Guess);
+            PlayerGuess.OutputResult = OutputResult.ReturnOutputAfterGuess(game);
         }
 
         public virtual string FormatAnswerToSpecificGame(string correctAnswer, int newNumber)
@@ -36,7 +36,7 @@ namespace Refactoring_Lab.Models
 
         public void CheckIfGameIsOver()
         {
-            if (PlayerGuess.OutPutResult == GameWinningCondition)
+            if (PlayerGuess.OutputResult == GameWinningCondition)
             {
                 PlayerGuess.PlayerIsGuessing = false;
             }

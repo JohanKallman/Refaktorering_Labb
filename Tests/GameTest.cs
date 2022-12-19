@@ -1,12 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Refactoring_Lab.Interfaces;
 using Refactoring_Lab.Models;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Refactoring_Lab.Tests
 {
@@ -21,7 +16,9 @@ namespace Refactoring_Lab.Tests
         [DataRow("3213", "1233", "BB,CC")]
         public void ReturnOutputAfterGuess(string input, string correctAnswer, string expected)
         {
-            string result = game.OutputResult.ReturnOutputAfterGuess(correctAnswer, input);
+            game.PlayerGuess.Guess = input;
+            game.GameAnswer.CorrectAnswer = correctAnswer;
+            string result = game.OutputResult.ReturnOutputAfterGuess(game);
             Assert.AreEqual(result, expected);
         }
 
@@ -32,7 +29,7 @@ namespace Refactoring_Lab.Tests
         public void CheckIfGameIsOver(string input, bool expected)
         {
             game.PlayerGuess.PlayerIsGuessing = true;
-            game.PlayerGuess.OutPutResult = input;
+            game.PlayerGuess.OutputResult = input;
             game.CheckIfGameIsOver();
             bool result = game.PlayerGuess.PlayerIsGuessing;
 
