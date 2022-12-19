@@ -10,6 +10,7 @@ namespace Refactoring_Lab.Models
         public bool GameIsRunning { get; set; } = false;
         public IAnswerService GameAnswer { get; set; } = new GameAnswer();
         public IPlayerGuess PlayerGuess { get; set; } = new PlayerGuess();
+        public string GameWinningCondition { get; set; } = "";
 
         public void StartNewInstanceOfGame(Game game)
         {
@@ -71,7 +72,7 @@ namespace Refactoring_Lab.Models
 
         public void CheckIfGameIsOver()
         {
-            if (PlayerGuess.OutPutResult == "BBBB,")
+            if (PlayerGuess.OutPutResult == GameWinningCondition)
             {
                 PlayerGuess.PlayerIsGuessing = false;
             }

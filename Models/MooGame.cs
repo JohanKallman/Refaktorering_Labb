@@ -10,6 +10,7 @@ namespace Refactoring_Lab.Models
             GameAnswer.HighestRandomNumber = 10;
             GameAnswer.LowestRandomNumber = 0;
             GameAnswer.AmountOfIntegersInAnswer = 4;
+            GameWinningCondition = "BBBB,";
         }
     }
 }

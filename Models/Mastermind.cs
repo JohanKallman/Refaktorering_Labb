@@ -12,6 +12,7 @@ namespace Refactoring_Lab.Models
             GameAnswer.HighestRandomNumber = 7;
             GameAnswer.AmountOfIntegersInAnswer = 4;
             GameAnswer.LowestRandomNumber = 1;
+            GameWinningCondition = "BBBB,";
         }
 
         public override void PrepareRoundResult()
