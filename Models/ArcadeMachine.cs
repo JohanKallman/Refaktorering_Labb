@@ -49,7 +49,7 @@ namespace Refactoring_Lab.Models
                 }
             }
             while (_arcadeIsRunning);
-            _uI.PrintGoodByeMessage();
+            _uI.PrintGoodByeMessage(_arcadeName);
         }
 
         public void RunGame()
@@ -62,7 +62,7 @@ namespace Refactoring_Lab.Models
                 GameOver();
             }
             while (_gameIsRunning);
-            _uI.PrintGoodByeMessage();
+            _uI.PrintGoodByeMessage(_game.GameName);
         }
 
         public void RunStartup()

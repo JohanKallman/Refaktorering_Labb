@@ -68,9 +68,9 @@ namespace Refactoring_Lab.Models
         {
             Console.Write("Your guess: ");
         }
-        public void PrintGoodByeMessage()
+        public void PrintGoodByeMessage(string name)
         {
-            Console.WriteLine("Thank you for playing!");
+            Console.WriteLine($"Thank you for playing {name}!");
         }
 
         public void PrintTopList(string topList)
