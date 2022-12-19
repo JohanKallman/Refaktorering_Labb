@@ -10,6 +10,7 @@ namespace Refactoring_Lab.Models
         public bool GameIsRunning { get; set; } = false;
         public IAnswerService GameAnswer { get; set; } = new GameAnswer();
         public IPlayerGuess PlayerGuess { get; set; } = new PlayerGuess();
+        public OutPutResult OutPutResult { get; set; } = new OutPutResult();
         public string GameWinningCondition { get; set; } = "";
 
         public void StartNewInstanceOfGame(Game game)
@@ -21,7 +22,7 @@ namespace Refactoring_Lab.Models
 
         public virtual void PrepareRoundResult()
         {
-            PlayerGuess.OutPutResult = ReturnOutputAfterGuess();
+            PlayerGuess.OutPutResult = OutPutResult.ReturnOutputAfterGuess(GameAnswer.CorrectAnswer, PlayerGuess    .Guess);
         }
 
         public virtual string FormatAnswerToSpecificGame(string correctAnswer, int newNumber)
@@ -31,43 +32,6 @@ namespace Refactoring_Lab.Models
                 correctAnswer += newNumber.ToString();
             }
             return correctAnswer;
-        }
-
-        public string ReturnOutputAfterGuess()
-        {
-            int numberExistsWrongPositionCounter = 0;
-            int correctPositionCounter = 0;
-            string[] correctAnswerCheck = { "", "", "", "" };
-            string[] correctGuessCheck = { "", "", "", "" };
-            for (int i = 0; i < 4; i++)
-            {
-                for (int j = 0; j < 4; j++)
-                {
-                    if (GameAnswer.CorrectAnswer[i] == PlayerGuess.Guess[j])
-                    {
-                        if (i == j)
-                        {
-                            if (correctAnswerCheck[i] == "C" || correctGuessCheck[i] == "C")
-                            {
-                                numberExistsWrongPositionCounter--;
-                            }
-                            correctPositionCounter++;
-                            correctAnswerCheck[i] = "B";
-                            correctGuessCheck[j] = "B";
-                        }
-                        else
-                        {
-                            if (correctAnswerCheck[i] == "" && correctGuessCheck[j] == "")
-                            {
-                                numberExistsWrongPositionCounter++;
-                                correctAnswerCheck[i] = "C";
-                                correctGuessCheck[j] = "C";
-                            }
-                        }
-                    }
-                }
-            }
-            return "BBBB".Substring(0, correctPositionCounter) + "," + "CCCC".Substring(0, numberExistsWrongPositionCounter);
         }
 
         public void CheckIfGameIsOver()

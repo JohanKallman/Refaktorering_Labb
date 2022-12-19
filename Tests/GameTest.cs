@@ -21,9 +21,7 @@ namespace Refactoring_Lab.Tests
         [DataRow("3213", "1233", "BB,CC")]
         public void ReturnOutputAfterGuess(string input, string correctAnswer, string expected)
         {
-            game.PlayerGuess.Guess = input;
-            game.GameAnswer.CorrectAnswer = correctAnswer;
-            string result = game.ReturnOutputAfterGuess();
+            string result = game.OutPutResult.ReturnOutputAfterGuess(correctAnswer, input);
             Assert.AreEqual(result, expected);
         }
 
@@ -45,9 +43,7 @@ namespace Refactoring_Lab.Tests
         [DataRow("Q", false)]
         [DataRow("q", false)]
         [DataRow("   Q", false)]
-
         [DataRow("YES", true)]
-        //[DataRow("", true)]
         public void CheckIfPlayAgain(string input, bool expected)
         {
             Console.SetIn(new StringReader(input));

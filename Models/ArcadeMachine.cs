@@ -25,8 +25,7 @@ namespace Refactoring_Lab.Models
             }
             return _instance;
         }
-
-        public ArcadeMachine(UI uI, IStatistics statistics, IPlayerData playerData)
+        private ArcadeMachine(UI uI, IStatistics statistics, IPlayerData playerData)
         {
             _uI = uI;
             _statistics = statistics;
